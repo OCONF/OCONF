@@ -1,0 +1,28 @@
+{
+  "name": "OCONF",
+  "description": "Online video conference application with chat, whiteboard and document share abilities",
+  "main": "app.js",
+  "authors": [
+    "OCONF"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "conference",
+    "chat",
+    "p2p",
+    "webRTC",
+    "file",
+    "sharing",
+    "whiteboard"
+  ],
+  "homepage": "https://github.com/oconf/OCONF",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
