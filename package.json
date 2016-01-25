@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "start": "webpack --progress --colors --watch -d",
-    "build": "webpack --progress --colors -p",
+    "postinstall": "webpack --progress --colors -p",
     "server": "node bin/www",
     "local": "npm run dev & npm run server",
     "test": "jest",
