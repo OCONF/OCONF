@@ -1,9 +1,16 @@
 #!/usr/bin/env node
 // var debug = require('debug')('MODULE_NAME');
 var app = require('../app');
+var fs = require('fs');
 
 app.set('port', process.env.PORT || 3000);
-var server = require('http').Server(app);
+
+var options = {
+  key:  fs.readFileSync('keys/server.key'),
+  cert: fs.readFileSync('keys/server.crt')
+};
+
+var server = require('https').Server(options, app);
 
 server.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
