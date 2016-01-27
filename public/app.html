@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.webrtc-experiment.com/style.css">
+    <title>Video Conferencing using RTCMultiConnection-v3.0</title>
+    <style>
+        video {
+            object-fit: fill;
+            width: 30%;
+        }
+        button,
+        input,
+        select {
+            font-weight: normal;
+            padding: 2px 4px;
+            text-decoration: none;
+            display: inline-block;
+            text-shadow: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .make-center {
+            text-align: center;
+            padding: 5px 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <section class="experiment">
+        <div class="make-center">
+            <input type="text" id="room-id" value="abcdef">
+            <button id="open-room">Open Room</button>
+            <button id="join-room">Join Room</button>
+            <button id="open-or-join-room">Auto Open Or Join Room</button>
+        </div>
+
+        <div id="videos-container"></div>
+    </section>
+
+    <!-- <script src="/RTCMultiConnection.min.js"></script> -->
+    <script src="https://cdn.webrtc-experiment.com:443/rmc3.min.js"></script>
+
+    <!-- socket.io for signaling -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        // ......................................................
+        // .......................UI Code........................
+        // ......................................................
+        // var socket = io.connect('http://127.0.0.1:3000');
+        document.getElementById('open-room').onclick = function() {
+            this.disabled = true;
+            connection.open(document.getElementById('room-id').value);
+        };
+
+        document.getElementById('join-room').onclick = function() {
+            this.disabled = true;
+            connection.join(document.getElementById('room-id').value);
+        };
+
+        document.getElementById('open-or-join-room').onclick = function() {
+            this.disabled = true;
+            connection.openOrJoin(document.getElementById('room-id').value);
+        };
+
+        // ......................................................
+        // ..................RTCMultiConnection Code.............
+        // ......................................................
+
+        var connection = new RTCMultiConnection();
+
+        document.getElementById('room-id').value = connection.token();
+
+        connection.session = {
+            audio: true,
+            video: true
+        };
+
+        connection.sdpConstraints.mandatory = {
+            OfferToReceiveAudio: true,
+            OfferToReceiveVideo: true
+        };
+
+        var videosContainer = document.getElementById('videos-container');
+        connection.onstream = function(event) {
+            videosContainer.appendChild(event.mediaElement);
+        };
+    </script>
+  </body>
+  <script src="/bundle.js"></script>
+</html>
