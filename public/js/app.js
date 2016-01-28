@@ -5,12 +5,16 @@ var Skynet = new Skylink();
 
 Skynet.on('peerJoined', function(peerId, peerInfo, isSelf) {
   if(isSelf) return; // We already have a video element for our video and don't need to create a new one.
+  var div = document.createElement('div');
+  div.className = 'videodiv'
+  div.id = 'video'+peerId;
   var vid = document.createElement('video');
   vid.autoplay = true;
   vid.className = 'videocontainer peervideo';
   vid.muted = false; // Added to avoid feedback when testing locally
   vid.id = peerId;
-  document.body.appendChild(vid);
+  div.appendChild(vid);
+  document.getElementById('peersVideo').appendChild(div);
 });
 
 Skynet.on('incomingStream', function(peerId, stream, isSelf) {
@@ -18,10 +22,19 @@ Skynet.on('incomingStream', function(peerId, stream, isSelf) {
   var vid = document.getElementById(peerId);
   attachMediaStream(vid, stream);
 });
+Skynet.on('peerUpdated', function(peerId, peerInfo) {
+  var div = document.getElementById('video' + peerId);
+  var videoStatus = peerInfo.mediaStatus.videoMuted;
+  if (videoStatus) {
+    div.className = 'videodiv unicorn';
+  } else {
+    div.className = 'videodiv';
+  }
+})
 
 Skynet.on('peerLeft', function(peerId, peerInfo, isSelf) {
-  var vid = document.getElementById(peerId);
-  document.body.removeChild(vid);
+  var vid = document.getElementById('video'+peerId);
+  document.getElementById('peersVideo').removeChild(vid);
 });
 
 Skynet.on('mediaAccessSuccess', function(stream) {
@@ -36,6 +49,8 @@ Skynet.on('mediaAccessSuccess', function(stream) {
   document.getElementById('video-mute').onclick = function() {
     videoMuted = !videoMuted;
     Skynet.muteStream({videoMuted: videoMuted});
+    // .className = 'videocontainer unicorn';
+    // console.log(vid);
   };
   // var options = {};
   // var speechEvents = hark(stream, options);

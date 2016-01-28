@@ -1,27 +1,46 @@
 html, body{
-    margin:0px;
-    height:100%;
-    background: black;
+  margin:0px;
+  height:100%;
+  background: black;
 }
 
 /*.speaker {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }*/
 .videocontainer {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    display: inline-block;
-    background-size: contain;
-    border-radius:8px;
-    border: 2px solid gray;
-    margin-right: 3px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  background-size: contain;
+  border-radius:8px;
+  border: 2px solid gray;
+  margin-right: 3px;
 }
 .peervideo {
-    height:200px;
+  height:200px;
+}
+
+.unicorn {
+  border-radius:8px;
+  border: 2px solid gray;
+  background: url('../img/angryunicorn1.png') no-repeat;
+  background-position: 50% 50%;
+  z-index: 99;
+  height: 200px;
+  width: 261px;
+}
+
+.unicorn > video {
+  display: none;
+}
+
+.videodiv {
+  position: relative;
+  float: left;
 }
