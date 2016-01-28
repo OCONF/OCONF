@@ -22,13 +22,23 @@ Skynet.on('incomingStream', function(peerId, stream, isSelf) {
   var vid = document.getElementById(peerId);
   attachMediaStream(vid, stream);
 });
-Skynet.on('peerUpdated', function(peerId, peerInfo) {
-  var div = document.getElementById('video' + peerId);
+
+Skynet.on('peerUpdated', function(peerId, peerInfo, isSelf) {
   var videoStatus = peerInfo.mediaStatus.videoMuted;
-  if (videoStatus) {
-    div.className = 'videodiv unicorn';
+  if (isSelf) {
+  var div = document.getElementById('selfVideo');
+    if (videoStatus) {
+      div.className = 'unicorn-self';
+    } else {
+      div.className = '';
+    }
   } else {
-    div.className = 'videodiv';
+    var div = document.getElementById('video' + peerId);
+    if (videoStatus) {
+      div.className = 'videodiv unicorn';
+    } else {
+      div.className = 'videodiv';
+    }
   }
 })
 
@@ -38,19 +48,28 @@ Skynet.on('peerLeft', function(peerId, peerInfo, isSelf) {
 });
 
 Skynet.on('mediaAccessSuccess', function(stream) {
+  console.log(stream);
   var vid = document.getElementById('myvideo');
   attachMediaStream(vid, stream);
   var audioMuted = false;
   var videoMuted = false;
   document.getElementById('audio-mute').onclick = function() {
     audioMuted = !audioMuted;
+    if (audioMuted) {
+      this.className = "btn btn-danger glyphicon glyphicon-volume-off";
+    } else {
+      this.className = "btn btn-success glyphicon glyphicon-volume-down";
+    }
     Skynet.muteStream({audioMuted: audioMuted});
   };
   document.getElementById('video-mute').onclick = function() {
     videoMuted = !videoMuted;
+    if (videoMuted) {
+      this.className = "btn btn-danger glyphicon glyphicon-facetime-video";
+    } else {
+      this.className = "btn btn-success glyphicon glyphicon-facetime-video";
+    }
     Skynet.muteStream({videoMuted: videoMuted});
-    // .className = 'videocontainer unicorn';
-    // console.log(vid);
   };
   // var options = {};
   // var speechEvents = hark(stream, options);
