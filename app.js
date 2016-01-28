@@ -1,14 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import fs from 'fs';
+import https from 'https';
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
-var app = express();
+const app = express();
+const port = process.env.PORT || 3000;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -19,17 +19,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
-// app.use('/', routes);
-// app.use('/users', users);
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-app.get('/', express.static(__dirname + '/public'));
+var options = {
+  key:  fs.readFileSync('keys/server.key'),
+  cert: fs.readFileSync('keys/server.crt')
+};
+
+var server = https.Server(options, app);
+
+server.listen(port, () => console.log('Express server listening on port ' + server.address().port));
 
 
-module.exports = app;
+export default app;
