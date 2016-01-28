@@ -3,12 +3,21 @@
 
 <head>
   <script src="//cdn.temasys.com.sg/skylink/skylinkjs/0.6.x/skylink.complete.min.js"></script>
-<link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
 </head>
 
 <body>
+  <button id="audio-mute" class="btn btn-danger glyphicon glyphicon-volume-off"></button>
+  <button id="video-mute" class="btn btn-warning glyphicon glyphicon-facetime-video"></button>
   <div id="selfVideo"><video id="myvideo" class="videocontainer" style="transform: rotateY(-180deg);" autoplay muted></video></div>
   <div id="peersVideo"></div>
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
   <script src ="/hark/hark.bundle.js"></script>
   <script src ="js/app.js"></script>
 </body>

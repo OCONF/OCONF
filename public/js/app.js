@@ -2,6 +2,7 @@
 
 var Skynet = new Skylink();
 
+
 Skynet.on('peerJoined', function(peerId, peerInfo, isSelf) {
   if(isSelf) return; // We already have a video element for our video and don't need to create a new one.
   var vid = document.createElement('video');
@@ -26,6 +27,16 @@ Skynet.on('peerLeft', function(peerId, peerInfo, isSelf) {
 Skynet.on('mediaAccessSuccess', function(stream) {
   var vid = document.getElementById('myvideo');
   attachMediaStream(vid, stream);
+  var audioMuted = false;
+  var videoMuted = false;
+  document.getElementById('audio-mute').onclick = function() {
+    audioMuted = !audioMuted;
+    Skynet.muteStream({audioMuted: audioMuted});
+  };
+  document.getElementById('video-mute').onclick = function() {
+    videoMuted = !videoMuted;
+    Skynet.muteStream({videoMuted: videoMuted});
+  };
   // var options = {};
   // var speechEvents = hark(stream, options);
 
