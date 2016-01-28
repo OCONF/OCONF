@@ -36,6 +36,20 @@ html, body{
   width: 261px;
 }
 
+.unicorn-self {
+  border-radius:8px;
+  border: 2px solid gray;
+  background: url('../img/angryunicorn1.png') no-repeat;
+  background-position: 50% 50%;
+  z-index: 99;
+  height: 480px;
+  width: 640px;
+}
+
+.unicorn-self > video {
+  display: none;
+}
+
 .unicorn > video {
   display: none;
 }
