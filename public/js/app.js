@@ -43,8 +43,11 @@ Skynet.on('peerUpdated', function(peerId, peerInfo, isSelf) {
 })
 
 Skynet.on('peerLeft', function(peerId, peerInfo, isSelf) {
+  if (isSelf) return;
   var vid = document.getElementById('video'+peerId);
-  document.getElementById('peersVideo').removeChild(vid);
+  if (vid) {
+    document.getElementById('peersVideo').removeChild(vid);
+  }
 });
 
 Skynet.on('mediaAccessSuccess', function(stream) {
