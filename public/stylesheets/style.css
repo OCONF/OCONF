@@ -39,7 +39,7 @@ html, body{
 .unicorn-self {
   border-radius:8px;
   border: 2px solid gray;
-  background: url('../img/angryunicorn1.png') no-repeat;
+  background: url('../img/angryunicorn.png') no-repeat;
   background-position: 50% 50%;
   z-index: 99;
   height: 480px;
