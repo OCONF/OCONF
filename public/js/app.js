@@ -89,6 +89,22 @@ Skynet.on('mediaAccessSuccess', function(stream) {
   // });
 });
 
+var screenShared = false;
+document.getElementById('share-screen').onclick = function() {
+
+  if (!screenShared) {
+    Skynet.shareScreen({enableAudio: true}, function(error, success) {
+      screenShared = true;
+      if (error) console.log(error);
+      else console.log(success);
+    });
+  } else {
+    Skynet.stopScreen();
+    screenShared = false;
+  }
+};
+
+
 Skynet.init({
   apiKey: '44759962-822a-42db-9de2-39a31bf25675',
   defaultRoom: 'test'
