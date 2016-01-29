@@ -5,17 +5,26 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import fs from 'fs';
-import https from 'https';
+import http from 'http';
 
 const app = express();
+const testStore = {};
 const port = process.env.PORT || 3000;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.enable('trust proxy');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.session({
+  secret: 'nyancat is testing this!',
+  proxy: true,
+  key: 'session.sid',
+  cookie: {secure: true},
+  store: testStore
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
@@ -26,12 +35,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-var options = {
-  key:  fs.readFileSync('keys/server.key'),
-  cert: fs.readFileSync('keys/server.crt')
-};
-
-var server = https.Server(options, app);
+var server = http.Server(app);
 
 server.listen(port, () => console.log('Express server listening on port ' + server.address().port));
 
