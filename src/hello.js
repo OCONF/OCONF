@@ -20,7 +20,5 @@ import util from 'util';
  *  hello('username'); // 'Hello, username'
  */
 export default function hello(name) {
-  name = name || 'world';
-
-  return util.format('Hello, %s!', name);
+  return util.format('Hello, %s!', name || 'world');
 }
