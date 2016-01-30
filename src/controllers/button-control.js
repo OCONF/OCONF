@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Skynet from '../index';
+import { Skynet } from '../index';
 
 /**
 * Button control module.
@@ -17,15 +17,15 @@ let buttonControls = {
 * @function audioMuteControl
 */
 export function audioMuteControl() {
-    $('#audio-mute').on(click, () => {
+    $('#audio-mute').on('click', () => {
     buttonControls.audioMuted = !buttonControls.audioMuted;
     if (buttonControls.audioMuted) {
-      $(this).removeClass('btn-success glyphicon-volume-down').addClass('btn-danger glyphicon-volume-off');
+      $('#audio-mute').removeClass('btn-success glyphicon-volume-down').addClass('btn-danger glyphicon-volume-off');
     } else {
-      $(this).removeClass('btn-danger glyphicon-volume-off').addClass('btn-success glyphicon-volume-down');
+      $('#audio-mute').removeClass('btn-danger glyphicon-volume-off').addClass('btn-success glyphicon-volume-down');
     }
     Skynet.muteStream(
-      { audioMuted: buttonControls.audioMuted },
+      { audioMuted: buttonControls.audioMuted }
     );
   });
 }
@@ -33,12 +33,12 @@ export function audioMuteControl() {
 * @function videoMuteControl
 */
 export function videoMuteControl() {
-  $('#video-mute').on(click, () => {
+  $('#video-mute').on('click', () => {
     buttonControls.videoMuted = !buttonControls.videoMuted;
     if (buttonControls.videoMuted) {
-      $(this).removeClass('btn-success').addClass('btn-danger');
+      $('#video-mute').removeClass('btn-success').addClass('btn-danger');
     } else {
-      $(this).removeClass('btn-danger').addClass('btn-success');
+      $('#video-mute').removeClass('btn-danger').addClass('btn-success');
     }
     Skynet.muteStream(
       { videoMuted: buttonControls.videoMuted }
@@ -47,7 +47,7 @@ export function videoMuteControl() {
 }
 
 export function screenShare() {
-  $('#share-screen').on(click, () => {
+  $('#share-screen').on('click', () => {
     if (!buttonControls.screenShared) {
       Skynet.shareScreen({ enableAudio: true }, (error, success) => {
         buttonControls.screenShared = true;

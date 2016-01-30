@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Skynet from '../index';
+import { Skynet } from '../index';
 
 /**
 * @function peerJoined
