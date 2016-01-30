@@ -9,7 +9,7 @@ var jsdoc = require('gulp-jsdoc');
 var sequence = require('run-sequence');
 var babel = require('gulp-babel');
 var isparta = require('isparta');
-var babelRegister = require('babel-core/register');
+var babelRegister = require('babel-register');
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 
