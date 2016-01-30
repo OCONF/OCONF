@@ -10,6 +10,8 @@ var sequence = require('run-sequence');
 var babel = require('gulp-babel');
 var isparta = require('isparta');
 var babelRegister = require('babel-core/register');
+var gulp = require('gulp');
+var eslint = require('gulp-eslint');
 
 var GULP_FILE = ['gulpfile.js'];
 var SRC_FILES = ['src/**/*.js'];
@@ -32,6 +34,13 @@ gulp.task('jscs', function (done) {
   gulp.src(GULP_FILE.concat(SRC_FILES, TEST_FILES))
     .pipe(jscs())
     .on('finish', done);
+});
+
+gulp.task('lint', function () {
+    return gulp.src(['src/*.js','!node_modules/**', '!public/**']) 
+        .pipe(eslint()) 
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });
 
 gulp.task('test', function (done) {
@@ -70,7 +79,7 @@ gulp.task('jsdoc', ['compile'], function (done) {
 });
 
 gulp.task('build', function (done) {
-  sequence('jshint', 'jscs', 'test', 'compile', 'jsdoc', done);
+  sequence('jscs', 'test', 'compile', 'jsdoc', done);
 });
 
 gulp.task('pre-commit', ['build']);
