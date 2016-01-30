@@ -36,7 +36,7 @@ gulp.task('jscs', function (done) {
     .on('finish', done);
 });
 
-gulp.task('lint', function () {
+gulp.task('eslint', function () {
     return gulp.src(['src/*.js','!node_modules/**', '!public/**']) 
         .pipe(eslint()) 
         .pipe(eslint.format())
@@ -79,7 +79,7 @@ gulp.task('jsdoc', ['compile'], function (done) {
 });
 
 gulp.task('build', function (done) {
-  sequence('jscs', 'test', 'compile', 'jsdoc', done);
+  sequence('eslint', 'jscs', 'test', 'compile', 'jsdoc', done);
 });
 
 gulp.task('pre-commit', ['build']);
