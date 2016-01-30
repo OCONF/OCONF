@@ -23,6 +23,8 @@ app.use(session({
   secret: 'nyancat is testing this!',
   proxy: true,
   key: 'session.sid',
+  resave: false,
+  saveUninitialized: true,
   cookie: {secure: true}
 }));
 app.use(express.static(path.join(__dirname, 'public')));
