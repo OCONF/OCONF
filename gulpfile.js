@@ -12,6 +12,10 @@ var isparta = require('isparta');
 var babelRegister = require('babel-register');
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
+var browserify = require('browserify');
+var babelify = require('babelify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 var GULP_FILE = ['gulpfile.js'];
 var SRC_FILES = ['src/**/*.js'];
@@ -68,8 +72,23 @@ gulp.task('test', function (done) {
 gulp.task('compile', function (done) {
   gulp.src(SRC_FILES)
     .pipe(babel())
+    .pipe(browserify())
     .pipe(gulp.dest(COMPILED_SRC_DIR))
     .on('finish', done);
+});
+
+gulp.task('bundle', function (done) {
+  var bundler = browserify({
+    entries: './src/index.js',
+    debug: true
+  });
+  bundler
+    .transform(babelify)
+    .bundle()
+    .on('error', function (err) { console.error(err); })
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(COMPILED_SRC_DIR));
 });
 
 gulp.task('jsdoc', ['compile'], function (done) {
@@ -79,7 +98,7 @@ gulp.task('jsdoc', ['compile'], function (done) {
 });
 
 gulp.task('build', function (done) {
-  sequence('eslint', 'jscs', 'test', 'compile', 'jsdoc', done);
+  sequence('eslint', 'jscs', 'test', 'bundle', 'jsdoc', done);
 });
 
 gulp.task('pre-commit', ['build']);
