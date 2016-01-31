@@ -1,3 +1,4 @@
+'use strict';
 import $ from 'jquery';
 import { Skynet } from '../index';
 
@@ -10,13 +11,10 @@ export function peerJoined() {
     let div = $('<div></div>')
       .addClass('videodiv')
       .attr('id', `video${peerId}`);
-    let vid = $('<video></video>')
-      .addClass('videocontainer peervideo')
-      .attr({
-        id: peerId,
-        autoplay: true,
-        muted: false,
-      });
+    let vid = document.createElement('video');
+    vid.autoplay = true;
+    vid.className = 'videocontainer peervideo';
+    vid.id = peerId;
     div.append(vid);
     $('#peersVideo').append(div);
   });

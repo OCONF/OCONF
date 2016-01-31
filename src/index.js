@@ -11,6 +11,7 @@
 // import $ from 'jquery';
 import { audioMuteControl, videoMuteControl, screenShare } from './controllers/button-control';
 import { peerJoined, peerLeft, peerUpdated } from './controllers/peer-control';
+// import hark from 'hark';
 
 export const Skynet = new window.Skylink();
 (function App() {
@@ -31,6 +32,9 @@ export const Skynet = new window.Skylink();
   // TODO: Init may need to be refactored to support different rooms, or at least re-called
   Skynet.on('mediaAccessSuccess', stream => {
     const vid = document.getElementById('myvideo');
+    // const selfSpeech = hark(stream, {});
+    // selfSpeech.on('speaking', () => console.log('speaking'));
+    // selfSpeech.on('stopped_speaking', () => console.log('stopped speaking'));
     window.attachMediaStream(vid, stream);
   });
 
@@ -45,7 +49,7 @@ export const Skynet = new window.Skylink();
     // Localhost testing key only for now
     apiKey: '44759962-822a-42db-9de2-39a31bf25675',
     // Yas
-    defaultRoom: 'test',
+    defaultRoom: 'test2',
   }, () => {
     Skynet.joinRoom({
       audio: true,
