@@ -61,3 +61,29 @@ export function screenShare() {
     }
   });
 }
+
+export function sendFile() {
+  $('#send-file').on('click', () => {
+    let files = $('#file')[0].files;
+    Skynet.sendBlobData(files[0]);
+  })
+}
+
+export function addMessage(message, className) {
+  var infobox = $('#infobox'),
+  div = document.createElement('div');
+  div.className = className;
+  div.innerHTML = message;
+  $('#infobox').append(div);
+}
+
+export function addFile(transferId, peerId, displayName, transferInfo, isUpload) {
+  var transfers = $('#transfers'),
+  item = document.createElement('tr');
+  item.innerHTML = '<td>' + ((isUpload) ? '&#8657;' : '&#8659;') + '</td>' +
+    '<td>' + displayName + '</td><td>' + transferInfo.name +
+    '</td><td><span id="' + peerId + '_' + transferId + '"></span>' +
+    ((!isUpload) ? '<a id="' + transferId + '" href="#" download="' +
+      transferInfo.name + '" style="display:none">Download</a>' : '') + '</td>';
+  transfers.append(item);
+}

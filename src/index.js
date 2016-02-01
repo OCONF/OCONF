@@ -9,8 +9,16 @@
  *
  */
 // import $ from 'jquery';
-import { audioMuteControl, videoMuteControl, screenShare } from './controllers/button-control';
-import { peerJoined, peerLeft, peerUpdated } from './controllers/peer-control';
+import {
+  audioMuteControl,
+  videoMuteControl,
+  screenShare,
+  sendFile } from './controllers/button-control';
+import {
+  peerJoined,
+  peerLeft,
+  peerUpdated,
+  fileTransfer } from './controllers/peer-control';
 // import hark from 'hark';
 
 export const Skynet = new window.Skylink();
@@ -22,11 +30,13 @@ export const Skynet = new window.Skylink();
   audioMuteControl();
   videoMuteControl();
   screenShare();
+  sendFile();
 
   // Initialize peer controllers
   peerJoined();
   peerLeft();
   peerUpdated();
+  fileTransfer();
 
   // Deal with self media
   // TODO: Init may need to be refactored to support different rooms, or at least re-called
