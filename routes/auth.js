@@ -1,13 +1,14 @@
 import Knex from 'knex';
 import session from 'express-session';
 import KnexSessionStore from 'connect-session-knex';
+import { postgresPassword } from '../config';
 const KnexSession = KnexSessionStore(session);
-const knex = Knex({
+export const knex = Knex({
   client: 'pg',
   connection: {
     host: '127.0.0.1',
     user: 'postgres',
-    password: 'test123',
+    password: postgresPassword,
     database: 'oconf',
   }
 });

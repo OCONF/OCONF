@@ -29,7 +29,7 @@ app.use(session({
   key: 'session.sid',
   resave: false,
   saveUninitialized: true,
-  cookie: {secure: true},
+  cookie: { secure: true },
   store: store
 }));
 app.use(express.static(path.join(__dirname, 'public')));
