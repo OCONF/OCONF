@@ -50,14 +50,47 @@ export function videoMuteControl() {
 export function screenShare() {
   $('#share-screen').on('click', () => {
     if (!buttonControls.screenShared) {
-      Skynet.shareScreen({ enableAudio: true }, (error, success) => {
-        buttonControls.screenShared = true;
-        if (error) console.log(error);
-        else console.log(success);
+      buttonControls.screenShared = true;
+      Skynet.shareScreen({ enableAudio: true }, (cancel) => {
+        buttonControls.screenShared = false;
+      }, (error) => {
+        console.log(error);
       });
     } else {
       Skynet.stopScreen();
       buttonControls.screenShared = false;
+      navigator.getUserMedia({video: true}, (stream) => {
+        var video = document.getElementById('myvideo');
+        attachMediaStream(video, stream);
+      }, (error) => {
+        console.log(error);
+      });
     }
   });
+}
+
+export function sendFile() {
+  $('#send-file').on('click', () => {
+    let files = $('#file')[0].files;
+    Skynet.sendBlobData(files[0]);
+  })
+}
+
+export function addMessage(message, className) {
+  var infobox = $('#infobox'),
+  div = document.createElement('div');
+  div.className = className;
+  div.innerHTML = message;
+  $('#infobox').append(div);
+}
+
+export function addFile(transferId, peerId, displayName, transferInfo, isUpload) {
+  var transfers = $('#transfers'),
+  item = document.createElement('tr');
+  item.innerHTML = '<td>' + ((isUpload) ? '&#8657;' : '&#8659;') + '</td>' +
+    '<td>' + displayName + '</td><td>' + transferInfo.name +
+    '</td><td><span id="' + peerId + '_' + transferId + '"></span>' +
+    ((!isUpload) ? '<a id="' + transferId + '" href="#" download="' +
+      transferInfo.name + '" style="display:none">Download</a>' : '') + '</td>';
+  transfers.append(item);
 }
