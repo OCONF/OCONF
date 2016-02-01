@@ -22,11 +22,17 @@ import {
   sendMessage,
   addMessage,
 } from './controllers/chat-control';
-
 import whiteboard from './controllers/whiteboard-control';
-
+import chooseRoom from './controllers/room-control';
+import hark from 'hark';
 export const Skynet = new window.Skylink();
 (function App() {
+  chooseRoom();
+  window.user = prompt('What is your name?');
+  console.log(window.user);
+  Skynet.setUserData({
+    displayName: window.user,
+  });
   // On load, initialize new Skylink connection
   Skynet.setDebugMode({ storeLogs: true });
 
@@ -49,16 +55,21 @@ export const Skynet = new window.Skylink();
   // Deal with self media
   // TODO: Init may need to be refactored to support different rooms, or at least re-called
   Skynet.on('mediaAccessSuccess', stream => {
+    console.log('myStream', stream);
     const vid = document.getElementById('myvideo');
-    // const selfSpeech = hark(stream, {});
-    // selfSpeech.on('speaking', () => console.log('speaking'));
-    // selfSpeech.on('stopped_speaking', () => console.log('stopped speaking'));
+    const selfSpeech = hark(stream, {});
+    selfSpeech.on('speaking', () => console.log('self speaking'));
+    selfSpeech.on('stopped_speaking', () => console.log('self stopped speaking'));
     window.attachMediaStream(vid, stream);
   });
 
  // Handle that oncoming stream, filter it into new vid elements (made by peer functions)
   Skynet.on('incomingStream', (peerId, stream, isSelf) => {
     if (isSelf) return;
+    console.log('peerStream', stream);
+    const peerSpeech = hark(stream, {});
+    peerSpeech.on('speaking', () => console.log('peer speaking'));
+    peerSpeech.on('stopped_speaking', () => console.log('peer stopped speaking'));
     const vid = document.getElementById(`${peerId}`);
     window.attachMediaStream(vid, stream);
   });
@@ -77,7 +88,7 @@ export const Skynet = new window.Skylink();
     // Localhost testing key only for now
     apiKey: '44759962-822a-42db-9de2-39a31bf25675',
     // Yas
-    defaultRoom: 'test12',
+    defaultRoom: window.room,
   }, () => {
     Skynet.joinRoom({
       audio: true,

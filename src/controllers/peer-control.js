@@ -9,14 +9,17 @@ import { Skynet } from '../index';
 export function peerJoined() {
   Skynet.on('peerJoined', (peerId, peerInfo, isSelf) => {
     if (isSelf) return;
+    let displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
     let div = $('<div></div>')
       .addClass('videodiv')
       .attr('id', `video${peerId}`);
-    let vid = document.createElement('video');
-    vid.autoplay = true;
-    vid.className = 'videocontainer peervideo';
-    vid.id = peerId;
-    div.append(vid);
+    let video = $('<video />', {
+        id: peerId,
+        autoplay: true,
+        class: 'videocontainer peervideo',
+        'data-display-name': displayName,
+    });
+    div.append(video);
     $('#peersVideo').append(div);
   });
 }
