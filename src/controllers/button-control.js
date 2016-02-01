@@ -50,14 +50,21 @@ export function videoMuteControl() {
 export function screenShare() {
   $('#share-screen').on('click', () => {
     if (!buttonControls.screenShared) {
-      Skynet.shareScreen({ enableAudio: true }, (error, success) => {
-        buttonControls.screenShared = true;
-        if (error) console.log(error);
-        else console.log(success);
+      buttonControls.screenShared = true;
+      Skynet.shareScreen({ enableAudio: true }, (cancel) => {
+        buttonControls.screenShared = false;
+      }, (error) => {
+        console.log(error);
       });
     } else {
       Skynet.stopScreen();
       buttonControls.screenShared = false;
+      navigator.getUserMedia({video: true}, (stream) => {
+        var video = document.getElementById('myvideo');
+        attachMediaStream(video, stream);
+      }, (error) => {
+        console.log(error);
+      });
     }
   });
 }
