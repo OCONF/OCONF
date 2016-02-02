@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
   <script src="//cdn.temasys.com.sg/skylink/skylinkjs/0.6.9/skylink.complete.js"></script>
@@ -20,64 +21,55 @@
 
 
 </head>
+
 <body class="page-body">
 
-<div class="page-container">
-<!-- add class ^^ "chat-visible" to make chat appear always -->
+  <div class="page-container">
+    <!-- add class ^^ "chat-visible" to make chat appear always -->
 
 
 
-  <div class="main-content">
+    <div class="main-content">
 
-    <div class="row">
-              <nav>
-              <button id="audio-mute" class="btn btn-success glyphicon glyphicon-volume-down"></button>
-              <button id="video-mute" class="btn btn-success glyphicon glyphicon-facetime-video"></button>
-              <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
-              <button href="#" data-toggle="chat" data-collapse-sidebar="1" class="btn btn-success">
-              <input id="file" type="file" autofocus multiple />
-              <button id="send-file">Send file</button>
-              <div id="container">
-              <div id="infobox"></div>
-              </div>
-              <table id="transfers">
-              <tr>
+      <div class="row">
+        <nav>
+          <button id="audio-mute" class="btn btn-success glyphicon glyphicon-volume-down"></button>
+          <button id="video-mute" class="btn btn-success glyphicon glyphicon-facetime-video"></button>
+          <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
+          <button href="#" data-toggle="chat" data-collapse-sidebar="1" class="btn btn-success">
+            <i class="entypo-chat"></i> Chat
+
+            <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
+          </button>
+          <input id="file" type="file" autofocus multiple />
+          <button id="send-file">Send file</button>
+          <div id="container">
+            <div id="infobox"></div>
+          </div>
+          <table id="transfers">
+            <tr>
               <th>File</th>
               <th>Status</th>
-              </tr>
-              </table>
-              <i class="entypo-chat"></i>
-              Chat
-
-              <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
-            </button>
-            </nav>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-md-12">
-        <div id="selfVideo"><video id="myvideo" class="videocontainer" style="transform: rotateY(-180deg);" autoplay muted></video></div>
-      <div id="peersVideo"></div>
+            </tr>
+          </table>
+        </nav>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <div id="selfVideo">
+            <video id="myvideo" class="videocontainer" style="transform: rotateY(-180deg);" autoplay muted></video>
+          </div>
+          <div id="peersVideo"></div>
+        </div>
       </div>
     </div>
 
 
+    <div id="chat" class="fixed" data-current-user="SkyNet Overlord" data-order-by-status="1">
+      <div class="chat-inner">
 
-
-    <div class="row">
-      <div class="col-md-12">
-
-
-      </div>
-    </div>
-
-  </div>
-
-
-  <div id="chat" class="fixed" data-current-user="SkyNet Overlord" data-order-by-status="1">
-    <div class="chat-inner">
-
-      <h2 class="chat-header">
+        <h2 class="chat-header">
         <a href="#" class="chat-close">
           X
         </a>
@@ -86,53 +78,55 @@
         <span class="badge badge-success is-hidden">0</span>
       </h2>
 
-      <div class="chat-group" id="group-1">
-        <strong>Class</strong>
+        <div class="chat-group" id="group-1">
+          <strong>Class</strong>
 
-        <a href="#" id="sample-user-123" ><span class="user-status is-online"></span> <em>Questions</em></a>
-        <a href="#"><span class="user-status is-online"></span> <em>General</em></a>
+          <a href="#" id="sample-user-123"><span class="user-status is-online"></span> <em>Questions</em></a>
+          <a href="#"><span class="user-status is-online"></span> <em>General</em></a>
+
+        </div>
+
+
+        <div class="chat-group" id="group-2">
+          <strong>Work</strong>
+
+          <a href="#"><span class="user-status is-offline"></span> <em>Rokas</em></a>
+          <a href="#"><span class="user-status is-offline"></span> <em>Ben</em></a>
+          <a href="#"><span class="user-status is-busy"></span> <em>Matt</em></a>
+        </div>
+
+
+        <div class="chat-group" id="group-3">
+          <strong>Social</strong>
+          <a href="#"><span class="user-status is-busy"></span> <em>Skynet Overlord</em></a>
+        </div>
 
       </div>
 
+      <!-- conversation template -->
+      <div class="chat-conversation">
+        <div class="conversation-header">
+          <a href="#" class="conversation-close">
+            <li>X</li>
+          </a>
 
-      <div class="chat-group" id="group-2">
-        <strong>Work</strong>
+          <span class="user-status"></span>
+          <span class="display-name"></span>
+          <small></small>
+        </div>
 
-        <a href="#"><span class="user-status is-offline"></span> <em>Rokas</em></a>
-        <a href="#" ><span class="user-status is-offline"></span> <em>Ben</em></a>
-        <a href="#"><span class="user-status is-busy"></span> <em>Matt</em></a>
+        <ul class="conversation-body" id="chatbox-general">
+        </ul>
+        <div class="chat-textarea">
+          <textarea id="message-input" class="form-control autogrow" placeholder="Type your message"></textarea>
+        </div>
       </div>
-
-
-      <div class="chat-group" id="group-3">
-        <strong>Social</strong>
-        <a href="#"><span class="user-status is-busy"></span> <em>Skynet Overlord</em></a>
-      </div>
-
     </div>
 
-    <!-- conversation template -->
-    <div class="chat-conversation">
-      <div class="conversation-header">
-        <a href="#" class="conversation-close"><li>X</li></a>
 
-        <span class="user-status"></span>
-        <span class="display-name"></span>
-        <small></small>
-      </div>
 
-      <ul class="conversation-body" id="chatbox-general">
-      </ul>
-      <div class="chat-textarea">
-        <textarea id="message-input" class="form-control autogrow" placeholder="Type your message"></textarea>
-      </div>
-    </div>
+
   </div>
-
-
-
-
-</div>
 
 
   <!-- jQuery -->
@@ -140,7 +134,7 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src="/js/bootstrap.min.js"></script>
-  <script src ="/hark/hark.bundle.js"></script>
+  <script src="/hark/hark.bundle.js"></script>
   <!-- // <script src ="js/app.js"></script> -->
   <script src="/build/dist/app.js"></script>
 
@@ -157,4 +151,5 @@
 
 
 </body>
+
 </html>

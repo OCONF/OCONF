@@ -19,7 +19,11 @@ import {
   peerLeft,
   peerUpdated,
   fileTransfer } from './controllers/peer-control';
-import {sendMessage, addMessage } from './controllers/chat-control';
+import {
+  sendMessage,
+  addMessage,
+} from './controllers/chat-control';
+
 export const Skynet = new window.Skylink();
 (function App() {
   // On load, initialize new Skylink connection
@@ -31,7 +35,7 @@ export const Skynet = new window.Skylink();
   screenShare();
   sendFile();
 
-  //Initialize message controls
+  // Initialize message controls
   addMessage();
   sendMessage();
 
@@ -59,9 +63,9 @@ export const Skynet = new window.Skylink();
   });
 
   Skynet.on('incomingMessage', (message, peerId, peerInfo, isSelf) => {
-    let user = 'You',
-    className = 'you';
-    if(!isSelf) {
+    let user = 'You'
+    let  className = 'you';
+    if (!isSelf) {
       user = peerInfo.userData.displayName || 'AngryUnicorn';
       className = 'message';
     }
