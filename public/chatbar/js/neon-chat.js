@@ -1,4 +1,4 @@
-var neonChat = neonChat || {
+var skynetChat = skynetChat || {
 	$current_user: null,
 	isOpen: false,
 	chat_history: [],
@@ -25,10 +25,9 @@ var neonChat = neonChat || {
 		sidebar_default_is_open = ! $(".page-container").hasClass('sidebar-collapsed');
 
 
-	$.extend(neonChat, {
+	$.extend(skynetChat, {
 
-		init: function()
-		{
+		init: function() {
 			// Implement Unique ID in case it doesn't exists
 			if( $.isFunction( $.fn.uniqueId ) == false ) {
 
@@ -49,7 +48,7 @@ var neonChat = neonChat || {
 			}
 
 			// Conversation Close
-			$conversation_window.on('click', '.conversation-close', neonChat.close);
+			$conversation_window.on('click', '.conversation-close', skynetChat.close);
 
 			$("body").on('click', '.chat-close', function(ev)
 			{
@@ -57,7 +56,7 @@ var neonChat = neonChat || {
 
 				var animate = $(this).is('[data-animate]');
 
-				neonChat.hideChat(animate);
+				skynetChat.hideChat(animate);
 			});
 
 			$("body").on('click', '.chat-open', function(ev)
@@ -66,14 +65,14 @@ var neonChat = neonChat || {
 
 				var animate = $(this).is('[data-animate]');
 
-				neonChat.showChat(animate);
+				skynetChat.showChat(animate);
 			});
 
 
 			// Texarea
 			$textarea.keydown(function(e)	{
 				if(e.keyCode == 27){
-					neonChat.close();
+					skynetChat.close();
 				}
 			});
 
@@ -86,11 +85,11 @@ var neonChat = neonChat || {
 
 				if($chat_user.hasClass('active'))
 				{
-					neonChat.close();
+					skynetChat.close();
 				}
 				else
 				{
-					neonChat.open($chat_user);
+					skynetChat.open($chat_user);
 				}
 			});
 
@@ -101,11 +100,11 @@ var neonChat = neonChat || {
 				$this.append('<span class="badge badge-info is-hidden">0</span>');
 			});
 
-			neonChat.refreshUserIds();
-			neonChat.orderGroups();
-			neonChat.prefetchMessages();
-			neonChat.countUnreadMessages();
-			neonChat.puffUnreads();
+			skynetChat.refreshUserIds();
+			skynetChat.orderGroups();
+			skynetChat.prefetchMessages();
+			skynetChat.countUnreadMessages();
+			skynetChat.puffUnreads();
 
 			// Chat
 			if($chat.hasClass('fixed') && $chat_inner.length && $.isFunction($.fn.niceScroll))
@@ -128,7 +127,7 @@ var neonChat = neonChat || {
 					with_animation = $this.is('[data-animate]'),
 					collapse_sidebar = $this.is('[data-collapse-sidebar]');
 
-				neonChat.toggleChat(with_animation, collapse_sidebar);
+				skynetChat.toggleChat(with_animation, collapse_sidebar);
 			});
 		},
 
@@ -260,15 +259,15 @@ var neonChat = neonChat || {
 
 				var id = $this.attr('id');
 
-				if(typeof neonChat.chat_history[id] == 'undefined')
+				if(typeof skynetChat.chat_history[id] == 'undefined')
 				{
 					var status = $this.data('status');
 
 					if( ! status)
 					{
-						for(var i in neonChat.statuses)
+						for(var i in skynetChat.statuses)
 						{
-							if($status.hasClass(neonChat.statuses[i].class))
+							if($status.hasClass(skynetChat.statuses[i].class))
 							{
 								status = i;
 								break;
@@ -276,7 +275,7 @@ var neonChat = neonChat || {
 						}
 					}
 
-					neonChat.chat_history[id] = {
+					skynetChat.chat_history[id] = {
 						$el: $this,
 						messages: [],
 						unreads: 0,
@@ -376,7 +375,7 @@ var neonChat = neonChat || {
 				id = id.attr('id');
 			}
 
-			var user = neonChat.chat_history[id];
+			var user = skynetChat.chat_history[id];
 
 			if(user)
 			{
@@ -407,7 +406,7 @@ var neonChat = neonChat || {
 				$status.addClass(this.statuses[status].class);
 				$user.data('status', status);
 
-				neonChat.chat_history[ $user.attr('id') ].status = status;
+				skynetChat.chat_history[ $user.attr('id') ].status = status;
 				this.orderGroups();
 			}
 		},
@@ -431,9 +430,9 @@ var neonChat = neonChat || {
 					var $contact = $(el),
 						$status = $contact.find('.user-status');
 
-					for(var i in neonChat.statuses)
+					for(var i in skynetChat.statuses)
 					{
-						var status = neonChat.statuses[i];
+						var status = skynetChat.statuses[i];
 
 						if(i == $contact.data('status'))
 						{
@@ -476,7 +475,7 @@ var neonChat = neonChat || {
 							fromOpponent = $entry.hasClass('even') || $entry.hasClass('odd') || $entry.hasClass('opponent'),
 							unread = $entry.hasClass('unread');
 
-						neonChat.pushMessage(id, message, from, time, fromOpponent, unread)
+						skynetChat.pushMessage(id, message, from, time, fromOpponent, unread)
 					});
 				}
 
@@ -489,9 +488,9 @@ var neonChat = neonChat || {
 
 			if( ! id)
 			{
-				for(var id in neonChat.chat_history)
+				for(var id in skynetChat.chat_history)
 				{
-					var user = neonChat.chat_history[id],
+					var user = skynetChat.chat_history[id],
 						current_user_count = 0;
 
 					for(var i in user.messages)
@@ -513,7 +512,7 @@ var neonChat = neonChat || {
 					id = id.attr('id');
 				}
 
-				var user = neonChat.chat_history[id];
+				var user = skynetChat.chat_history[id];
 
 				if(user)
 				{
@@ -528,7 +527,7 @@ var neonChat = neonChat || {
 		{
 			for(var i in this.chat_history)
 			{
-				var entry = neonChat.chat_history[i],
+				var entry = skynetChat.chat_history[i],
 					$badge = entry.$el.find('.badge');
 
 				if(entry.unreads > 0)
@@ -557,7 +556,7 @@ var neonChat = neonChat || {
 				id = id.attr('id');
 			}
 
-			var user = neonChat.chat_history[id];
+			var user = skynetChat.chat_history[id];
 
 			if(user)
 			{
@@ -803,7 +802,7 @@ var neonChat = neonChat || {
 				public_vars.$pageContainer.addClass(visible_class);
 
 				// Close any opened conversation
-				neonChat.close();
+				skynetChat.close();
 
 				TweenMax.to($chat, .4, {css: {autoAlpha: (public_vars.$body.hasClass('boxed-layout') ? 0 : 1), transform: "translateX("+ ((public_vars.$pageContainer.hasClass('right-sidebar') ? -1 : 1) * chat_width) +"px)"}, ease: Sine.easeIn});
 
@@ -846,7 +845,7 @@ var neonChat = neonChat || {
 				_func = public_vars.$pageContainer.hasClass('toggle-click') ? 'hideChat' : 'showChat';
 			}
 
-			neonChat[_func](animated);
+			skynetChat[_func](animated);
 
 			if(collapse_sidebar)
 			{
@@ -874,6 +873,6 @@ var neonChat = neonChat || {
 
 
 	// Refresh Ids
-	neonChat.init();
+	skynetChat.init();
 
 })(jQuery, window);
