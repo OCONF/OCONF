@@ -58,3 +58,40 @@ html, body{
   position: relative;
   float: left;
 }
+.modal-content.ui-resizable {
+  overflow: hidden;
+}
+#whiteboard {
+  position: relative;
+   display: block;
+   border: 1px solid black;
+   cursor: pointer;
+}
+#yellow {
+  color: #FFFF00;
+}
+#red {
+  color: #FF0000;
+}
+#green {
+  color: #008000;
+}
+#blue {
+  color: #0000FF;
+}
+.btn-default {
+  background-color: #eee !important;
+}
+#controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  cursor: default;
+}
+#whiteboard {
+  margin-left: 50px;
+}
+.modal-backdrop.fade.in {
+  opacity: 0;
+}
