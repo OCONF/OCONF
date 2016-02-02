@@ -1,4 +1,4 @@
-let skynetChat = skynetChat || {
+var skynetChat = skynetChat || {
   $current_user: null,
   isOpen: false,
   chat_history: [],
