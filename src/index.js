@@ -8,7 +8,6 @@
  * Controls the app, imports other functionality
  *
  */
-// import $ from 'jquery';
 import {
   audioMuteControl,
   videoMuteControl,
@@ -23,6 +22,8 @@ import {
   sendMessage,
   addMessage,
 } from './controllers/chat-control';
+
+import whiteboard from './controllers/whiteboard-control';
 
 export const Skynet = new window.Skylink();
 (function App() {
@@ -83,4 +84,6 @@ export const Skynet = new window.Skylink();
       video: true,
     });
   });
+
+  whiteboard();
 }());
