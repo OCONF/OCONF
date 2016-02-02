@@ -66,7 +66,7 @@ export const Skynet = new window.Skylink();
     let user = 'You';
     let className = 'you';
     if (!isSelf) {
-      user = peerInfo.userData.displayName || 'AngryUnicorn';
+      user = peerInfo.userData.displayName || 'Tacocat';
       className = 'message';
     }
     addMessage(`${user}: ${message.content}`, className);
