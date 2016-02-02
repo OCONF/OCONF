@@ -20,11 +20,14 @@ import { Skynet } from '../index';
 
 
 export function sendMessage() {
-  $('#test').on('click', () => {
-    let input = document.getElementById('message-input');
+  let input = document.getElementById('message-input');
+  input.onkeyup = function(e){
+  if(e.keyCode == 13){
     Skynet.sendMessage(input.value);
     input.value = '';
-  });
+    console.log('test keypress');
+  }
+};
 }
 
 function scrollToBottom() {
@@ -38,8 +41,6 @@ let chatbox = document.getElementById('chatbox-general'),
   chatbox.appendChild(li);
   scrollToBottom();
 }
-
-
 
 // Skynet.on('peerJoined',(peerId, peerInfo, isSelf) => {
 //   let user = 'You';
@@ -56,3 +57,5 @@ let chatbox = document.getElementById('chatbox-general'),
 //   }
 //   addMessage(user + ' left the room', 'action');
 // });
+
+

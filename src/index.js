@@ -20,8 +20,6 @@ import {
   peerUpdated,
   fileTransfer } from './controllers/peer-control';
 import {sendMessage, addMessage } from './controllers/chat-control';
-// import hark from 'hark';
-
 export const Skynet = new window.Skylink();
 (function App() {
   // On load, initialize new Skylink connection
