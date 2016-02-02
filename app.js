@@ -100,6 +100,12 @@ io.on('connection', socket => {
 		// send clear to all clients
 		io.to(data.room).emit('clear', {});
 	});
+
+  socket.on('speaking', data => {
+    io.to(data.room).emit('audioFocus', {
+      id: data.id,
+    });
+  });
 });
 
 

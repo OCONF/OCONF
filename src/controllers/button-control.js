@@ -1,6 +1,7 @@
 'use strict';
 import $ from 'jquery';
 import { Skynet } from '../index';
+import { userData } from '../index';
 
 /**
 * Button control module.
@@ -8,25 +9,19 @@ import { Skynet } from '../index';
 * @see button-control
 */
 
-let buttonControls = {
-  audioMuted: false,
-  videoMuted: false,
-  screenShared: false,
-};
-
 /**
 * @function audioMuteControl
 */
 export function audioMuteControl() {
     $('#audio-mute').on('click', () => {
-    buttonControls.audioMuted = !buttonControls.audioMuted;
-    if (buttonControls.audioMuted) {
+    userData.audioMuted = !userData.audioMuted;
+    if (userData.audioMuted) {
       $('#audio-mute').removeClass('btn-success glyphicon-volume-down').addClass('btn-danger glyphicon-volume-off');
     } else {
       $('#audio-mute').removeClass('btn-danger glyphicon-volume-off').addClass('btn-success glyphicon-volume-down');
     }
     Skynet.muteStream(
-      { audioMuted: buttonControls.audioMuted }
+      { audioMuted: userData.audioMuted }
     );
   });
 }
@@ -35,30 +30,30 @@ export function audioMuteControl() {
 */
 export function videoMuteControl() {
   $('#video-mute').on('click', () => {
-    buttonControls.videoMuted = !buttonControls.videoMuted;
-    if (buttonControls.videoMuted) {
+    userData.videoMuted = !userData.videoMuted;
+    if (userData.videoMuted) {
       $('#video-mute').removeClass('btn-success').addClass('btn-danger');
     } else {
       $('#video-mute').removeClass('btn-danger').addClass('btn-success');
     }
     Skynet.muteStream(
-      { videoMuted: buttonControls.videoMuted }
+      { videoMuted: userData.videoMuted }
     );
   });
 }
 
 export function screenShare() {
   $('#share-screen').on('click', () => {
-    if (!buttonControls.screenShared) {
-      buttonControls.screenShared = true;
+    if (!userData.screenShared) {
+      userData.screenShared = true;
       Skynet.shareScreen({ enableAudio: true }, (cancel) => {
-        buttonControls.screenShared = false;
+        userData.screenShared = false;
       }, (error) => {
         console.log(error);
       });
     } else {
       Skynet.stopScreen();
-      buttonControls.screenShared = false;
+      userData.screenShared = false;
       navigator.getUserMedia({video: true}, (stream) => {
         var video = document.getElementById('myvideo');
         attachMediaStream(video, stream);

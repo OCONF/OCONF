@@ -22,10 +22,17 @@ import {
   sendMessage,
   addMessage,
 } from './controllers/chat-control';
+import isTalking from './controllers/audio-focus-control';
 import whiteboard from './controllers/whiteboard-control';
 import chooseRoom from './controllers/room-control';
 import hark from 'hark';
 export const Skynet = new window.Skylink();
+export let userData = {
+  id: '',
+  audioMuted: false,
+  videoMuted: false,
+  screenShared: false,
+};
 (function App() {
   chooseRoom();
   // On load, initialize new Skylink connection
@@ -50,21 +57,18 @@ export const Skynet = new window.Skylink();
   // Deal with self media
   // TODO: Init may need to be refactored to support different rooms, or at least re-called
   Skynet.on('mediaAccessSuccess', stream => {
-    console.log('myStream', stream);
     const vid = document.getElementById('myvideo');
     const selfSpeech = hark(stream, {});
-    selfSpeech.on('speaking', () => console.log('self speaking'));
-    selfSpeech.on('stopped_speaking', () => console.log('self stopped speaking'));
+    selfSpeech.on('speaking', () => isTalking(userData.id));
     window.attachMediaStream(vid, stream);
   });
 
  // Handle that oncoming stream, filter it into new vid elements (made by peer functions)
   Skynet.on('incomingStream', (peerId, stream, isSelf) => {
-    if (isSelf) return;
-    console.log('peerStream', stream);
-    const peerSpeech = hark(stream, {});
-    peerSpeech.on('speaking', () => console.log('peer speaking'));
-    peerSpeech.on('stopped_speaking', () => console.log('peer stopped speaking'));
+    if (isSelf) {
+      userData.id = peerId;
+      return;
+    }
     const vid = document.getElementById(`${peerId}`);
     window.attachMediaStream(vid, stream);
   });
@@ -90,6 +94,5 @@ export const Skynet = new window.Skylink();
       video: true,
     });
   });
-
   whiteboard();
 }());

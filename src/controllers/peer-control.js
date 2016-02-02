@@ -20,7 +20,7 @@ export function peerJoined() {
         'data-display-name': displayName,
     });
     div.append(video);
-    $('#peersVideo').append(div);
+    $('#video-list').append(div);
   });
 }
 
