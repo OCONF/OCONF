@@ -28,11 +28,6 @@ import hark from 'hark';
 export const Skynet = new window.Skylink();
 (function App() {
   chooseRoom();
-  window.user = prompt('What is your name?');
-  console.log(window.user);
-  Skynet.setUserData({
-    displayName: window.user,
-  });
   // On load, initialize new Skylink connection
   Skynet.setDebugMode({ storeLogs: true });
 
