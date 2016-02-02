@@ -10,6 +10,7 @@ import session from 'express-session';
 import fs from 'fs';
 import http from 'http';
 import socketIO from 'socket.io';
+import store from './routes/auth';
 
 const app = express();
 const testStore = {};
@@ -23,14 +24,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-	secret: 'nyancat is testing this!',
-	proxy: true,
-	key: 'session.sid',
-	resave: false,
-	saveUninitialized: true,
-	cookie: {secure: true}
+  secret: 'nyancat is testing this!',
+  proxy: true,
+  key: 'session.sid',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true },
+  store: store
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/app', express.static(path.join(__dirname, 'public/app.html')));
+app.use('/app/:room', express.static(path.join(__dirname, 'public/app.html')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 // catch 404 and forward to error handler
