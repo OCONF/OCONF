@@ -1,3 +1,5 @@
+'use strict';
+
 import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
@@ -69,7 +71,7 @@ io.on('connection', socket => {
 		// send lines to the client
 		for (const line in history[data.room]) {
 			socket.emit('draw_line', {
-				line: history[data.room][line].line, 
+				line: history[data.room][line].line,
 				color: history[data.room][line].color,
 				size: history[data.room][line].size 
 			});
@@ -82,8 +84,8 @@ io.on('connection', socket => {
 		history[data.room].push(data);
 		// send line to all clients
 		io.to(data.room).emit('draw_line', {
-			line: data.line, 
-			color: data.color, 
+			line: data.line,
+			color: data.color,
 			size: data.size
 		});
 	});

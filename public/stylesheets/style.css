@@ -58,9 +58,6 @@ html, body{
   position: relative;
   float: left;
 }
-<<<<<<< e756c35ae0249db565550d764a796cb979bb3184
-=======
-
 .modal-content.ui-resizable {
   overflow: hidden;
 }
@@ -92,8 +89,9 @@ html, body{
   z-index: 1;
   cursor: default;
 }
-
 #whiteboard {
   margin-left: 50px;
 }
->>>>>>> (feat) implemented whiteboar, added file share modal [closes #31]
+.modal-backdrop.fade.in {
+  opacity: 0;
+}

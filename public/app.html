@@ -5,54 +5,40 @@
 
   <script src="//cdn.temasys.com.sg/skylink/skylinkjs/0.6.9/skylink.complete.js"></script>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-<<<<<<< e756c35ae0249db565550d764a796cb979bb3184
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <!--crazy chat box needed -->
   <link rel="stylesheet" href="/chatbar/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css">
   <link rel="stylesheet" href="/chatbar/css/neon-core.css">
   <link rel="stylesheet" href="/chatbar/css/bootstrap.css">
-  <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
-
-
-
+  <!-- jquert ui --> 
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+  <!-- custom css --> 
+  <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
 
   <!--[if lt IE]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-
 </head>
-
 <body class="page-body">
-
   <div class="page-container">
     <!-- add class ^^ "chat-visible" to make chat appear always -->
-
-
-
     <div class="main-content">
-
       <div class="row">
         <nav>
           <button id="audio-mute" class="btn btn-success glyphicon glyphicon-volume-down"></button>
           <button id="video-mute" class="btn btn-success glyphicon glyphicon-facetime-video"></button>
           <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
-          <button href="#" data-toggle="chat" data-collapse-sidebar="1" class="btn btn-success">
-            <i class="entypo-chat"></i> Chat
-
+          <button id="share-file" class="btn btn-success glyphicon glyphicon-share" data-toggle="modal" data-target="#fileModal"></button>
+          <button id="white-board" class="btn btn-success glyphicon glyphicon-pencil" data-toggle="modal" data-target="#whiteboardModal"></button>
+          <button id="white-board" class="btn btn-success glyphicon glyphicon-comment" data-toggle="chat" data-collapse-sidebar="1">
             <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
           </button>
-          <input id="file" type="file" autofocus multiple />
-          <button id="send-file">Send file</button>
-          <div id="container">
-            <div id="infobox"></div>
-          </div>
-          <table id="transfers">
-            <tr>
-              <th>File</th>
-              <th>Status</th>
-            </tr>
-          </table>
+          <!-- <button href="#" data-toggle="chat" data-collapse-sidebar="1" class="btn btn-success">
+            <i class="entypo-chat"></i> Chat
+            <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
+          </button> -->
         </nav>
       </div>
       <hr />
@@ -125,7 +111,95 @@
     </div>
 
 
+    <!-- file share modal -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="share file">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="fileModalLabel">Share File</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                  <label for="file">Choose file to share:</label>
+                  <input type="file" id="file">
+                  <p class="help-block">File will be shared with everyone in this call.</p>
+                </div>
+            </form>
+            <div id="container">
+              <div id="infobox"></div>
+            </div>
 
+            <table class="table table-hover" id="transfers">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>User Name</th>
+                  <th>File Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="send-file">Send File</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Whiteboard Modal -->
+    <div class="modal fade" id="whiteboardModal" tabindex="-1" role="dialog" aria-labelledby="whiteboard">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Whiteboard</h4>
+          </div>
+          <div class="modal-body">
+            <div class="conatainer-fluid">
+              <div class="btn-group-vertical" id="controls" role="group" aria-label="whiteboard-controls">
+                <button type="button" class="btn btn-default" id="clear">
+                  <i class="fa fa-file-o"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="pencil">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="small">
+                  <i class="fa fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="medium">
+                  <i class="fa fa-lg fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="large">
+                  <i class="fa fa-2x fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="eraser">
+                  <i class="fa fa-eraser"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="black">
+                  <i class="fa fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="yellow">
+                  <i class="fa fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="red">
+                  <i class="fa fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="green">
+                  <i class="fa fa-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" id="blue">
+                  <i class="fa fa-circle"></i>
+                </button>
+              </div>
+              <canvas id="whiteboard"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -136,122 +210,11 @@
   <!-- Bootstrap Core JavaScript -->
   <script src="/js/bootstrap.min.js"></script>
   <script src="/hark/hark.bundle.js"></script>
-=======
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
-</head>
-
-<body>
-  <button id="audio-mute" class="btn btn-success glyphicon glyphicon-volume-down"></button>
-  <button id="video-mute" class="btn btn-success glyphicon glyphicon-facetime-video"></button>
-  <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
-  <button id="share-file" class="btn btn-success glyphicon glyphicon-share" data-toggle="modal" data-target="#fileModal"></button>
-  <button id="white-board" class="btn btn-success glyphicon glyphicon-pencil" data-toggle="modal" data-target="#whiteboardModal"></button>
-  <button id="white-board" class="btn btn-success glyphicon glyphicon-comment"></button>
-  <div id="selfVideo"><video id="myvideo" class="videocontainer" autoplay muted></video></div>
-  <div id="peersVideo"></div>
-  <!-- Modal -->
-  <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="share file">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="fileModalLabel">Share File</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-                <label for="file">Choose file to share:</label>
-                <input type="file" id="file">
-                <p class="help-block">File will be shared with everyone in this call.</p>
-              </div>
-          </form>
-          <div id="container">
-            <div id="infobox"></div>
-          </div>
-
-          <table class="table table-hover" id="transfers">
-            <thead>
-              <tr>
-                <th></th>
-                <th>User Name</th>
-                <th>File Name</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="send-file">Send File</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Whiteboard Modal -->
-  <div class="modal fade" id="whiteboardModal" tabindex="-1" role="dialog" aria-labelledby="whiteboard">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Whiteboard</h4>
-        </div>
-        <div class="modal-body">
-          <div class="conatainer-fluid">
-            <div class="btn-group-vertical" id="controls" role="group" aria-label="whiteboard-controls">
-              <button type="button" class="btn btn-default" id="clear">
-                <i class="fa fa-file-o"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="pencil">
-                <i class="fa fa-pencil"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="small">
-                <i class="fa fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="medium">
-                <i class="fa fa-lg fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="large">
-                <i class="fa fa-2x fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="eraser">
-                <i class="fa fa-eraser"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="black">
-                <i class="fa fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="yellow">
-                <i class="fa fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="red">
-                <i class="fa fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="green">
-                <i class="fa fa-circle"></i>
-              </button>
-              <button type="button" class="btn btn-default" id="blue">
-                <i class="fa fa-circle"></i>
-              </button>
-            </div>
-            <canvas id="whiteboard"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
-  <!-- // <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script> -->
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
-  <script src ="/hark/hark.bundle.js"></script>
   <script src="socket.io/socket.io.js"></script>
   <script type="text/javascript">
     window.room = 'abc123';
     window.user = "test";
   </script>
->>>>>>> (feat) implemented whiteboar, added file share modal [closes #31]
   <!-- // <script src ="js/app.js"></script> -->
   <script src="/build/dist/app.js"></script>
 
@@ -263,9 +226,6 @@
   <script src="/chatbar/js/neon-chat.js"></script>
   <script src="/chatbar/js/neon-custom.js"></script>
   <script src="/chatbar/js/jquery-1.11.3.min.js"></script>
-
-
-
 
 </body>
 

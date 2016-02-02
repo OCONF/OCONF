@@ -14,7 +14,6 @@ export default function () {
 	jq('#whiteboardModal').draggable({ cursor: "move", handle: '.modal-header'});
 	
 	jq('#whiteboardModal').on('show.bs.modal', function () {
-		jq('.modal-backdrop').css({ 'opacity': '1'});
 		jq(this).find('.modal-body').css({
 			'max-height': '100%',
 		});
