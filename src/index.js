@@ -19,6 +19,7 @@ import {
   peerLeft,
   peerUpdated,
   fileTransfer } from './controllers/peer-control';
+import {sendMessage, addMessage } from './controllers/chat-control';
 // import hark from 'hark';
 
 export const Skynet = new window.Skylink();
@@ -31,6 +32,10 @@ export const Skynet = new window.Skylink();
   videoMuteControl();
   screenShare();
   sendFile();
+
+  //Initialize message controls
+  addMessage();
+  sendMessage();
 
   // Initialize peer controllers
   peerJoined();
@@ -55,11 +60,21 @@ export const Skynet = new window.Skylink();
     window.attachMediaStream(vid, stream);
   });
 
+  Skynet.on('incomingMessage', (message, peerId, peerInfo, isSelf) => {
+    let user = 'You',
+    className = 'you';
+    if(!isSelf) {
+      user = peerInfo.userData.displayName || 'tacocat';
+      className = 'message';
+    }
+    addMessage(user + ': ' + message.content, className);
+  });
+
   Skynet.init({
     // Localhost testing key only for now
     apiKey: '44759962-822a-42db-9de2-39a31bf25675',
     // Yas
-    defaultRoom: 'test2',
+    defaultRoom: 'test12',
   }, () => {
     Skynet.joinRoom({
       audio: true,
