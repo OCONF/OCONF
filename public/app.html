@@ -111,6 +111,35 @@
     </div>
 
 
+    <!-- user info modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="usernameModalLabel">Choose a username</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="row">
+                  <label for="username">Please enter your name:</label>
+                  <input class="inline-block" type="text" id="username">
+                </div>
+              </div>
+            </form>
+            <div class="row">
+              <span>Use this link to share the room: <p id="room-share"></p></span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="user-okay" data-dismiss="modal">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- file share modal -->
     <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="share file">
       <div class="modal-dialog" role="document">

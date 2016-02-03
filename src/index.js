@@ -24,7 +24,7 @@ import {
 } from './controllers/chat-control';
 import isTalking from './controllers/audio-focus-control';
 import whiteboard from './controllers/whiteboard-control';
-import { chooseRoom, userModal } from './controllers/room-control';
+import { chooseRoom } from './controllers/room-control';
 import hark from 'hark';
 import _ from 'lodash';
 export const Skynet = new window.Skylink();
@@ -34,7 +34,9 @@ export const userData = {
   videoMuted: false,
   screenShared: false,
 };
-(function App() {
+
+
+function App() {
   chooseRoom();
   // On load, initialize new Skylink connection
   Skynet.setDebugMode({ storeLogs: true });
@@ -97,4 +99,9 @@ export const userData = {
     });
   });
   whiteboard();
-}());
+}
+
+chooseRoom(() => {
+  const app = App;
+  app();
+});

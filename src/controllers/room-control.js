@@ -1,12 +1,12 @@
 import randomWord from 'random-words';
 import { Skynet } from '../index';
+const $ = window.$;
 
-export default function chooseRoom() {
+export function chooseRoom(callback) {
   const path = window.location.pathname.slice(5);
-  console.log(path);
   if (path) {
     window.room = path;
-    getUserName();
+    userModal(callback);
   } else {
     window.room = getRandomRoom();
     window.location = `/app/${window.room}`;
@@ -19,9 +19,23 @@ function getRandomRoom() {
   return randomWords.join('');
 }
 
-function getUserName() {
-  window.user = prompt('What is your name?');
-  Skynet.setUserData({
-    displayName: window.user,
+export function userModal(callback) {
+  // window.user = prompt('What is your name?');
+  $('#userModal').modal('toggle');
+  $('#room-share').text(window.location.href);
+  $('#username').focus();
+  $('#username').on('keypress', (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      $('#user-okay').trigger('click');
+    }
+  });
+  $('#user-okay').on('click', () => {
+    window.user = $('#username').val();
+    Skynet.setUserData({
+      displayName: window.user,
+    });
+    // $('#userModal').modal('hide');
+    callback();
   });
 }
