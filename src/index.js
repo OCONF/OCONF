@@ -27,7 +27,7 @@ import whiteboard from './controllers/whiteboard-control';
 import chooseRoom from './controllers/room-control';
 import hark from 'hark';
 export const Skynet = new window.Skylink();
-export let userData = {
+export const userData = {
   id: '',
   audioMuted: false,
   videoMuted: false,
