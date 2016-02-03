@@ -24,8 +24,9 @@ import {
 } from './controllers/chat-control';
 import isTalking from './controllers/audio-focus-control';
 import whiteboard from './controllers/whiteboard-control';
-import chooseRoom from './controllers/room-control';
+import { chooseRoom } from './controllers/room-control';
 import hark from 'hark';
+import _ from 'lodash';
 export const Skynet = new window.Skylink();
 export const userData = {
   id: '',
@@ -33,7 +34,9 @@ export const userData = {
   videoMuted: false,
   screenShared: false,
 };
-(function App() {
+
+
+function App() {
   chooseRoom();
   // On load, initialize new Skylink connection
   Skynet.setDebugMode({ storeLogs: true });
@@ -59,7 +62,8 @@ export const userData = {
   Skynet.on('mediaAccessSuccess', stream => {
     const vid = document.getElementById('myvideo');
     const selfSpeech = hark(stream, {});
-    selfSpeech.on('speaking', () => isTalking(userData.id));
+    const talkThrottle = _.throttle(isTalking, 1000);
+    selfSpeech.on('speaking', () => talkThrottle(userData.id));
     window.attachMediaStream(vid, stream);
   });
 
@@ -95,4 +99,9 @@ export const userData = {
     });
   });
   whiteboard();
-}());
+}
+
+chooseRoom(() => {
+  const app = App;
+  app();
+});

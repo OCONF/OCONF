@@ -17,7 +17,7 @@ const testStore = {};
 const port = process.env.PORT || 3000;
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'img/favicon.ico')));
 app.enable('trust proxy');
 app.use(logger('dev'));
 app.use(bodyParser.json());
