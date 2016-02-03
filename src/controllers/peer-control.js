@@ -30,7 +30,12 @@ export function peerJoined() {
 export function peerLeft() {
   Skynet.on('peerLeft', (peerId, peerInfo, isSelf) => {
     if (isSelf) return;
-    else if ($(`#video${peerId}`)) $(`#video${peerId}`).remove();
+    // this should remove the peer, 
+    else if ($(`#video${peerId}`)) {
+      // handling if peer is the speaker, this will ensure speaker is removed
+      $(`#${peerId}`).remove();
+      $(`#video${peerId}`).remove();
+    }
   });
 }
 
