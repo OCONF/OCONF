@@ -11,6 +11,7 @@ import fs from 'fs';
 import http from 'http';
 import socketIO from 'socket.io';
 import store from './routes/auth';
+import _ from 'lodash';
 
 const app = express();
 const testStore = {};
@@ -53,59 +54,61 @@ server.listen(port, () => console.log('Express server listening on port ' + serv
 
 // object to hold idividual arrays for each room
 const history = {};
+function audioFocus(data) {
+  io.to(data.room).emit('audioFocus', {
+    id: data.id,
+  });
+}
+const audioThrottle = _.throttle(audioFocus, 3000);
 
 // event-handler for new incoming connections
 io.on('connection', socket => {
 
-	socket.on('room', room => {
-		socket.join(room);
-		history[room] = history[room] || [];
-		// first send the history to the new client
-		for (const line in history[room]) {
-			io.to(room).emit('draw_line', {
-				line: history[room][line].line,
-				color: history[room][line].color,
-				size: history[room][line].size
-			});
-		}
-	});
+  socket.on('room', room => {
+    socket.join(room);
+    history[room] = history[room] || [];
+    // first send the history to the new client
+    for (const line in history[room]) {
+      io.to(room).emit('draw_line', {
+        line: history[room][line].line,
+        color: history[room][line].color,
+        size: history[room][line].size
+      });
+    }
+  });
 
-	// redraw the lines
-	socket.on('redraw', data => {
-		// send lines to the client
-		for (const line in history[data.room]) {
-			socket.emit('draw_line', {
-				line: history[data.room][line].line,
-				color: history[data.room][line].color,
-				size: history[data.room][line].size 
-			});
-		}
-	});
+  // redraw the lines
+  socket.on('redraw', data => {
+    // send lines to the client
+    for (const line in history[data.room]) {
+      socket.emit('draw_line', {
+        line: history[data.room][line].line,
+        color: history[data.room][line].color,
+        size: history[data.room][line].size 
+      });
+    }
+  });
 
-	// handler for message type "draw_line".
-	socket.on('draw_line', data => {
-		// add received line to history
-		history[data.room].push(data);
-		// send line to all clients
-		io.to(data.room).emit('draw_line', {
-			line: data.line,
-			color: data.color,
-			size: data.size
-		});
-	});
-
-	// clear screen
-	socket.on('clear', data => {
-		history[data.room] = [];
-		// send clear to all clients
-		io.to(data.room).emit('clear', {});
-	});
-
-  socket.on('speaking', data => {
-    io.to(data.room).emit('audioFocus', {
-      id: data.id,
+  // handler for message type "draw_line".
+  socket.on('draw_line', data => {
+    // add received line to history
+    history[data.room].push(data);
+    // send line to all clients
+    io.to(data.room).emit('draw_line', {
+      line: data.line,
+      color: data.color,
+      size: data.size
     });
   });
+
+  // clear screen
+  socket.on('clear', data => {
+    history[data.room] = [];
+    // send clear to all clients
+    io.to(data.room).emit('clear', {});
+  });
+
+  socket.on('speaking', (data) => audioThrottle(data));
 });
 
 

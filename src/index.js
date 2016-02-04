@@ -8,8 +8,10 @@
  * Controls the app, imports other functionality
  *
  */
-global.$ = require('jquery');
+import $ from 'jquery';
+global.$ = $;
 import bootstrap from 'bootstrap';
+global.bootstrap = bootstrap;
 import {
   audioMuteControl,
   videoMuteControl,
@@ -27,6 +29,7 @@ import {
 import isTalking from './controllers/audio-focus-control';
 import whiteboard from './controllers/whiteboard-control';
 import { chooseRoom } from './controllers/room-control';
+import { getKey } from '../config';
 import hark from 'hark';
 import _ from 'lodash';
 export const Skynet = new window.Skylink();
@@ -35,11 +38,11 @@ export const userData = {
   audioMuted: false,
   videoMuted: false,
   screenShared: false,
+  peerJoining: false,
 };
 
 
 function App() {
-  chooseRoom();
   // On load, initialize new Skylink connection
   Skynet.setDebugMode({ storeLogs: true });
 
@@ -63,9 +66,16 @@ function App() {
   // TODO: Init may need to be refactored to support different rooms, or at least re-called
   Skynet.on('mediaAccessSuccess', stream => {
     const vid = document.getElementById('myvideo');
-    const selfSpeech = hark(stream, {});
-    const talkThrottle = _.throttle(isTalking, 1000);
-    selfSpeech.on('speaking', () => talkThrottle(userData.id));
+    const options = {
+      threshold: -45,
+    };
+    const selfSpeech = hark(stream, options);
+    const talkThrottle = _.throttle(isTalking, 3000);
+    selfSpeech.on('speaking', () => {
+      if (!userData.peerJoining) {
+        talkThrottle(userData.id);
+      }
+    });
     window.attachMediaStream(vid, stream);
   });
 
@@ -77,6 +87,7 @@ function App() {
     }
     const vid = document.getElementById(`${peerId}`);
     window.attachMediaStream(vid, stream);
+    userData.peerJoining = false;
   });
 
   Skynet.on('incomingMessage', (message, peerId, peerInfo, isSelf) => {
@@ -91,7 +102,7 @@ function App() {
 
   Skynet.init({
     // Localhost testing key only for now
-    apiKey: '44759962-822a-42db-9de2-39a31bf25675',
+    apiKey: getKey(),
     // Yas
     defaultRoom: window.room,
   }, () => {

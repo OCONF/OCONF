@@ -60,7 +60,7 @@ export default function () {
 			mouse.move = true;
 		};
 
-		let color = '000';
+		let color = '#000';
 		let size = 1;
 
 		// draw line received from server
