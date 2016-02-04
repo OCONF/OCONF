@@ -8,6 +8,8 @@
  * Controls the app, imports other functionality
  *
  */
+global.$ = require('jquery');
+import bootstrap from 'bootstrap';
 import {
   audioMuteControl,
   videoMuteControl,
