@@ -108,7 +108,10 @@ function App() {
   }, () => {
     Skynet.joinRoom({
       audio: true,
-      video: true,
+      video: {
+        resolution: Skynet.VIDEO_RESOLUTION.VGA,
+        frameRate: 20,
+      },
     });
   });
   whiteboard();
