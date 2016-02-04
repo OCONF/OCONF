@@ -9,6 +9,7 @@ socket.on('connect', () => {
 });
 socket.on('audioFocus', (data) => {
   let myVideo = jq(`#myvideo`);
+  let peerVideo = jq(`#${data.id}`);
   // if myself, move me up
   if (data.id === userData.id) {
     if (myVideo.parent()[0].id !== 'speaker') {
@@ -17,10 +18,9 @@ socket.on('audioFocus', (data) => {
       myVideo.removeClass('peervideo');
       myVideo[0].play();
     }
-  } else {
+  } else if (peerVideo[0]) {
     // otherwise move peer up
     removeLastFocus();
-    let peerVideo = jq(`#${data.id}`);
     jq('#speaker').append(peerVideo);
     peerVideo.removeClass('peervideo');
     peerVideo[0].play();

@@ -2,6 +2,7 @@
 import $ from 'jquery';
 import { addFile, addMessage } from './button-control'
 import { Skynet } from '../index';
+import { userData } from '..index';
 
 /**
 * @function peerJoined
@@ -9,6 +10,7 @@ import { Skynet } from '../index';
 export function peerJoined() {
   Skynet.on('peerJoined', (peerId, peerInfo, isSelf) => {
     if (isSelf) return;
+    userData.peerJoining = true;
     let displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
     let div = $('<div></div>')
       .addClass('videodiv')
