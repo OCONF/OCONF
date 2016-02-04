@@ -2,7 +2,7 @@
 import $ from 'jquery';
 import { addFile, addMessage } from './button-control'
 import { Skynet } from '../index';
-import { userData } from '..index';
+import { userData } from '../index';
 
 /**
 * @function peerJoined
