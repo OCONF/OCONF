@@ -47,10 +47,15 @@ export function peerLeft() {
 export function peerUpdated () {
   Skynet.on('peerUpdated', (peerId, peerInfo, isSelf) => {
     const videoStatus = peerInfo.mediaStatus.videoMuted;
-    if (isSelf) {
-      let div = $('#selfVideo');
+    const speaker = !isSelf ? $(`#${peerId}`).parent()[0] : $('#myvideo').parent()[0];
+    if (speaker.id === 'speaker') {
+      let div = $('#speaker');
       if (videoStatus) div.addClass('unicorn-self');
       else div.removeClass('unicorn-self');
+    } else if (isSelf) {
+      let div = $('#self');
+      if (videoStatus) div.addClass('unicorn');
+      else div.removeClass('unicorn');
     } else {
       let div = $(`#video${peerId}`);
       if (videoStatus) div.addClass('unicorn');
