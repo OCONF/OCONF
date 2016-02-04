@@ -38,7 +38,7 @@ function removeLastFocus() {
   let lastSpeaker = jq('#speaker').children();
   if (lastSpeaker.length) {
     let id = jq('#speaker').children()[0].id;
-    let place = id !== 'myvideo' ? `video${id}` : 'video-list';
+    let place = id !== 'myvideo' ? `video${id}` : 'self';
     jq(`#${place}`).append(lastSpeaker);
     lastSpeaker.addClass('peervideo');
     lastSpeaker[0].play();
