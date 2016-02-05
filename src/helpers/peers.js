@@ -1,6 +1,6 @@
 'use strict';
 import $ from 'jquery';
-import { addFile, addMessage } from '../controllers/button-control'
+import { addMessage } from '../controllers/chat-control';
 import { Skynet } from '../index';
 import { userData } from '../index';
 
@@ -8,10 +8,9 @@ import { userData } from '../index';
 * @function peerJoined
 */
 export function peerJoined(peerId, peerInfo, isSelf) {
-    if (isSelf) return;
-    var user = 'You';
-    user = peerInfo.userData.displayName || peerId;
+    user = isSelf ? 'You' : peerInfo.userData.displayName;
     addMessage(user + ' joined the room', 'action');
+    if (isSelf) return;
     userData.peerJoining = true;
     let displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
     let div = $('<div />', {
