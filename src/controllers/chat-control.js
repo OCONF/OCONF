@@ -1,61 +1,48 @@
-/*
-function setName() {
-  var input = document.getElementById('name');
-  skylink.setUserData({
-    name: input.value
-  });
-}
-*/
 import $ from 'jquery';
-import { Skynet } from '../index';
-
-
-// export function joinRoom() {
-//   skylink.joinRoom();
-// }
-
-// export function leaveRoom() {
-//   skylink.leaveRoom();
-// }
-
+import {
+  Skynet,
+} from '../index';
 
 export function sendMessage() {
-  let input = document.getElementById('message-input');
-  input.onkeyup = function(e){
-  if(e.keyCode == 13){
-    Skynet.sendMessage(input.value);
-    input.value = '';
-    console.log('test keypress');
-  }
-};
+  const input = document.getElementById('message-input');
+  input.onkeyup = function(e) {
+    if (e.keyCode == 13 && !e.shiftKey) {
+      Skynet.sendMessage(input.value);
+      input.value = '';
+    }
+  };
 }
 
+
 function scrollToBottom() {
-  $('#chatbox-general').scrollTop($('#chatbox-general')[0].scrollHeight);
+  $('#chat-history').scrollTop($('#chat-history')[0].scrollHeight);
 }
+
 export function addMessage(message, className) {
-let chatbox = document.getElementById('chatbox-general'),
-  li = document.createElement('li');
+  const chatbox = document.getElementById('chat-history');
+  const li = document.createElement('li');
   li.className = className;
   li.textContent = message;
   chatbox.appendChild(li);
   scrollToBottom();
 }
 
-// Skynet.on('peerJoined',(peerId, peerInfo, isSelf) => {
-//   let user = 'You';
-//   if(!isSelf) {
-//     user = peerInfo.userData.name || peerId;
-//   }
-//   addMessage(user + ' joined the room', 'action');
-// });
-
-// Skynet.on('peerLeft', (peerId, peerInfo, isSelf) => {
-//   let user = 'You';
-//   if(!isSelf) {
-//     user = peerInfo.userData.name || peerId;
-//   }
-//   addMessage(user + ' left the room', 'action');
-// });
-
-
+export function button() {
+  $('#peek').on('click', function() {
+    var $this = $(this);
+    if ($this.hasClass('open')) {
+      $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+          // <DO YOUR WORK HERE>
+          $this.animate({
+            left: '360px'
+          }, 500).removeClass('open');
+        }
+      });
+    } else {
+      $this.animate({
+        left: 0
+      }, 500).addClass('open');
+    }
+  });
+}

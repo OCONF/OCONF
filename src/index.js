@@ -25,7 +25,7 @@ import {
 import {
   sendMessage,
   addMessage,
-} from './controllers/chat-control';
+  button } from './controllers/chat-control';
 import isTalking from './controllers/audio-focus-control';
 import { getKey } from '../config';
 import socketsCtrl from './controllers/socket-control';
@@ -55,7 +55,7 @@ function App() {
   // Initialize message controls
   addMessage();
   sendMessage();
-
+  button();
   // Initialize peer controllers
   peerJoined();
   peerLeft();
