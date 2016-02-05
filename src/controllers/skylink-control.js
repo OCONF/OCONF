@@ -32,22 +32,7 @@ export function initializeSkylink() {
     }
     addMessage(`${user}: ${message.content}`, className);
   });
-
-  Skynet.on('peerJoined', function(peerId, peerInfo, isSelf) {
-    var user = 'You';
-    if (!isSelf) {
-      user = peerInfo.userData.displayName || peerId;
-    }
-    addMessage(user + ' joined the room', 'action');
-  });
-
-  Skynet.on('peerLeft', function(peerId, peerInfo, isSelf) {
-    var user = 'You';
-    if (!isSelf) {
-      user = peerInfo.userData.displayName || peerId;
-    }
-    addMessage(user + ' left the room', 'action');
-  });
+  
   // Peer Control
   Skynet.on('peerLeft', peerLeft);
   Skynet.on('peerJoined', peerJoined);
