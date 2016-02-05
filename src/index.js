@@ -26,12 +26,9 @@ import {
   sendMessage,
   addMessage,
   button } from './controllers/chat-control';
-import isTalking from './controllers/audio-focus-control';
-import { getKey } from '../config';
+import { initializeSkylink } from './controllers/skylink-control';
 import socketsCtrl from './controllers/socket-control';
 import { chooseRoom } from './controllers/room-control';
-import hark from 'hark';
-import _ from 'lodash';
 export const Skynet = new window.Skylink();
 export const userData = {
   id: '',
@@ -44,8 +41,7 @@ export const userData = {
 
 function App() {
   // On load, initialize new Skylink connection
-  Skynet.setDebugMode({ storeLogs: true });
-
+  initializeSkylink();
   // Initialize UI controls
   audioMuteControl();
   videoMuteControl();
@@ -62,58 +58,6 @@ function App() {
   peerUpdated();
   fileTransfer();
 
-  // Deal with self media
-  // TODO: Init may need to be refactored to support different rooms, or at least re-called
-  Skynet.on('mediaAccessSuccess', stream => {
-    const vid = document.getElementById('myvideo');
-    const options = {
-      threshold: -45,
-    };
-    const selfSpeech = hark(stream, options);
-    const talkThrottle = _.throttle(isTalking, 3000);
-    selfSpeech.on('speaking', () => {
-      if (!userData.peerJoining) {
-        talkThrottle(userData.id);
-      }
-    });
-    window.attachMediaStream(vid, stream);
-  });
-
- // Handle that oncoming stream, filter it into new vid elements (made by peer functions)
-  Skynet.on('incomingStream', (peerId, stream, isSelf) => {
-    if (isSelf) {
-      userData.id = peerId;
-      return;
-    }
-    const vid = document.getElementById(`${peerId}`);
-    window.attachMediaStream(vid, stream);
-    userData.peerJoining = false;
-  });
-
-  Skynet.on('incomingMessage', (message, peerId, peerInfo, isSelf) => {
-    let user = 'You';
-    let className = 'you';
-    if (!isSelf) {
-      user = peerInfo.userData.displayName || 'Tacocat';
-      className = 'message';
-    }
-    addMessage(`${user}: ${message.content}`, className);
-  });
-
-  Skynet.init({
-    // Localhost testing key only for now
-    apiKey: getKey(),
-    // Yas
-    defaultRoom: window.room,
-  }, () => {
-    Skynet.joinRoom({
-      audio: true,
-      video: {
-        resolution: Skynet.VIDEO_RESOLUTION.VGA,
-        frameRate: 20,
-      },
-    });
-  });
   socketsCtrl();
 }
 
