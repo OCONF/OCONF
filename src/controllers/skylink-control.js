@@ -5,6 +5,10 @@ import {
 } from './chat-control';
 import { userData } from '../index';
 import { selfStream, peerStream } from '../helpers/streams';
+import { peerLeft,
+  peerJoined,
+  peerUpdated } from '../helpers/peers';
+import { fileTransfer } from '../helpers/fileShare';
 import { getKey } from '../../config';
 
 
@@ -28,6 +32,13 @@ export function initializeSkylink() {
     }
     addMessage(`${user}: ${message.content}`, className);
   });
+
+  // Peer Control
+  Skynet.on('peerLeft', peerLeft);
+  Skynet.on('peerJoined', peerJoined);
+  Skynet.on('peerUpdated', peerUpdated);
+
+  Skynet.on('dataTransferState', fileTransfer);
 
   Skynet.init({
     // Localhost testing key only for now
