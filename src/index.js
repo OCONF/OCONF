@@ -18,11 +18,6 @@ import {
   screenShare,
   sendFile } from './controllers/button-control';
 import {
-  peerJoined,
-  peerLeft,
-  peerUpdated,
-  fileTransfer } from './controllers/peer-control';
-import {
   sendMessage,
   addMessage,
   button } from './controllers/chat-control';
@@ -53,11 +48,6 @@ function App() {
   sendMessage();
   button();
   // Initialize peer controllers
-  peerJoined();
-  peerLeft();
-  peerUpdated();
-  fileTransfer();
-
   socketsCtrl();
 }
 

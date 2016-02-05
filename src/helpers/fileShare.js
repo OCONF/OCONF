@@ -1,71 +1,7 @@
-'use strict';
 import $ from 'jquery';
-import { addFile, addMessage } from './button-control'
 import { Skynet } from '../index';
-import { userData } from '../index';
 
-/**
-* @function peerJoined
-*/
-export function peerJoined() {
-  Skynet.on('peerJoined', (peerId, peerInfo, isSelf) => {
-    if (isSelf) return;
-    userData.peerJoining = true;
-    let displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
-    let div = $('<div></div>')
-      .addClass('videodiv')
-      .attr('id', `video${peerId}`);
-    let video = $('<video />', {
-        id: peerId,
-        autoplay: true,
-        class: 'videocontainer peervideo',
-        'data-display-name': displayName,
-    });
-    div.append(video);
-    $('#video-list').append(div);
-  });
-}
-
-/**
-* @function peerLeft
-*/
-export function peerLeft() {
-  Skynet.on('peerLeft', (peerId, peerInfo, isSelf) => {
-    if (isSelf) return;
-    // this should remove the peer, 
-    else if ($(`#video${peerId}`)) {
-      // handling if peer is the speaker, this will ensure speaker is removed
-      $(`#${peerId}`).remove();
-      $(`#video${peerId}`).remove();
-    }
-  });
-}
-
-/**
-* @function peerUpdated
-*/
-export function peerUpdated () {
-  Skynet.on('peerUpdated', (peerId, peerInfo, isSelf) => {
-    const videoStatus = peerInfo.mediaStatus.videoMuted;
-    const speaker = !isSelf ? $(`#${peerId}`).parent()[0] : $('#myvideo').parent()[0];
-    if (speaker.id === 'speaker') {
-      let div = $('#speaker');
-      if (videoStatus) div.addClass('unicorn-self');
-      else div.removeClass('unicorn-self');
-    } else if (isSelf) {
-      let div = $('#self');
-      if (videoStatus) div.addClass('unicorn');
-      else div.removeClass('unicorn');
-    } else {
-      let div = $(`#video${peerId}`);
-      if (videoStatus) div.addClass('unicorn');
-      else div.removeClass('unicorn');
-    }
-  });
-}
-
-export function fileTransfer () {
-  Skynet.on('dataTransferState', function(state, transferId, peerId, transferInfo, error) {
+export function fileTransfer (state, transferId, peerId, transferInfo, error) {
   let displayName = Skynet.getPeerInfo(peerId).userData;
   let transferStatus = $('#' + peerId + '_' + transferId)[0];
 
@@ -116,5 +52,24 @@ export function fileTransfer () {
         error.message);
       transferStatus.innerHTML = 'Canceled';
     }
-  });
+}
+
+
+function addMessage(message, className) {
+  var infobox = $('#infobox'),
+  div = document.createElement('div');
+  div.className = className;
+  div.innerHTML = message;
+  $('#infobox').append(div);
+}
+
+function addFile(transferId, peerId, displayName, transferInfo, isUpload) {
+  var transfers = $('#transfers'),
+  item = document.createElement('tr');
+  item.innerHTML = '<td>' + ((isUpload) ? '&#8657;' : '&#8659;') + '</td>' +
+    '<td>' + displayName + '</td><td>' + transferInfo.name +
+    '</td><td><span id="' + peerId + '_' + transferId + '"></span>' +
+    ((!isUpload) ? '<a id="' + transferId + '" href="#" download="' +
+      transferInfo.name + '" style="display:none">Download</a>' : '') + '</td>';
+  transfers.append(item);
 }
