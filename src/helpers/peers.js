@@ -9,6 +9,9 @@ import { userData } from '../index';
 */
 export function peerJoined(peerId, peerInfo, isSelf) {
     if (isSelf) return;
+    var user = 'You';
+    user = peerInfo.userData.displayName || peerId;
+    addMessage(user + ' joined the room', 'action');
     userData.peerJoining = true;
     let displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
     let div = $('<div></div>')
@@ -32,6 +35,8 @@ export function peerLeft(peerId, peerInfo, isSelf) {
   // this should remove the peer, 
   else if ($(`#video${peerId}`)) {
     // handling if peer is the speaker, this will ensure speaker is removed
+    user = peerInfo.userData.displayName || peerId;
+    addMessage(user + ' left the room', 'action');
     $(`#${peerId}`).remove();
     $(`#video${peerId}`).remove();
   }
