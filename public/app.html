@@ -9,13 +9,10 @@
   <script src="//cdn.temasys.com.sg/skylink/skylinkjs/0.6.9/skylink.complete.js"></script>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!--crazy chat box needed -->
-  <link rel="stylesheet" href="/chatbar/js/jquery-ui/css/jquery-ui-1.10.3.custom.min.css">
-  <link rel="stylesheet" href="/chatbar/css/neon-core.css">
-  <link rel="stylesheet" href="/chatbar/css/bootstrap.css">
-  <!-- jquert ui --> 
+  <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+  <!-- jquert ui -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-  <!-- custom css --> 
+  <!-- custom css -->
   <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
 
   <!--[if lt IE]>
@@ -23,6 +20,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <body class="page-body">
   <div class="page-container">
     <!-- add class ^^ "chat-visible" to make chat appear always -->
@@ -34,9 +32,7 @@
           <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
           <button id="share-file" class="btn btn-success glyphicon glyphicon-share" data-toggle="modal" data-target="#fileModal"></button>
           <button id="white-board" class="btn btn-success glyphicon glyphicon-pencil" data-toggle="modal" data-target="#whiteboardModal"></button>
-          <button id="white-board" class="btn btn-success glyphicon glyphicon-comment" data-toggle="chat" data-collapse-sidebar="1">
-            <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
-          </button>
+          <button id="white-board" class="btn btn-success glyphicon glyphicon-comment" data-toggle="chat" data-collapse-sidebar="1"> </button>
           <!-- <button href="#" data-toggle="chat" data-collapse-sidebar="1" class="btn btn-success">
             <i class="entypo-chat"></i> Chat
             <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
@@ -47,6 +43,7 @@
       <div class="row">
         <div class="col-md-12">
           <div id="speaker">
+
           </div>
           <div id="video-list">
             <div id="self">
@@ -57,64 +54,30 @@
       </div>
     </div>
 
-
-    <div id="chat" class="fixed" data-current-user="SkyNet Overlord" data-order-by-status="1">
-      <div class="chat-inner">
-
-        <h2 class="chat-header">
-        <a href="#" class="chat-close">
-          X
-        </a>
-
-        Chat
-        <span class="badge badge-success is-hidden">0</span>
-      </h2>
-
-        <div class="chat-group" id="group-1">
-          <strong>Class</strong>
-
-          <a href="#" id="sample-user-123"><span class="user-status is-online"></span> <em>Questions</em></a>
-          <a href="#"><span class="user-status is-online"></span> <em>General</em></a>
-
-        </div>
-
-
-        <div class="chat-group" id="group-2">
-          <strong>Work</strong>
-
-          <a href="#"><span class="user-status is-offline"></span> <em>Rokas</em></a>
-          <a href="#"><span class="user-status is-offline"></span> <em>Ben</em></a>
-          <a href="#"><span class="user-status is-busy"></span> <em>Matt</em></a>
-        </div>
-
-
-        <div class="chat-group" id="group-3">
-          <strong>Social</strong>
-          <a href="#"><span class="user-status is-busy"></span> <em>Skynet Overlord</em></a>
-        </div>
-
-      </div>
-
-      <!-- conversation template -->
-      <div class="chat-conversation">
-        <div class="conversation-header">
-          <a href="#" class="conversation-close">
-            <li>X</li>
-          </a>
-
-          <span class="user-status"></span>
-          <span class="display-name"></span>
-          <small></small>
-        </div>
-
-        <ul class="conversation-body" id="chatbox-general">
-        </ul>
-        <div class="chat-textarea">
-          <textarea id="message-input" class="form-control autogrow" placeholder="Type your message"></textarea>
+    <!-- chat start -->
+    <div id="peek">
+      <div class="container clearfix" class="test">
+        <div class="chat">
+          <div class="chat-header clearfix">
+            <div class="chat-about">
+              <div class="chat-with">OCONF.CHAT</div>
+              <div class="chat-num-messages"></div>
+            </div>
+            <i class="fa fa-star"></i>
+          </div>
+          <!-- end chat-header -->
+          <div>
+            <ul id="chat-history">
+            </ul>
+          </div>
+          <!-- end chat-history -->
+          <div class="chat-message clearfix">
+            <textarea name="message-to-send" id="message-input" placeholder="Type your message" rows="3"></textarea>
+          </div>
         </div>
       </div>
     </div>
-
+    <!-- end chat -->
 
     <!-- user info modal -->
     <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username">
@@ -156,10 +119,10 @@
           <div class="modal-body">
             <form>
               <div class="form-group">
-                  <label for="file">Choose file to share:</label>
-                  <input type="file" id="file">
-                  <p class="help-block">File will be shared with everyone in this call.</p>
-                </div>
+                <label for="file">Choose file to share:</label>
+                <input type="file" id="file">
+                <p class="help-block">File will be shared with everyone in this call.</p>
+              </div>
             </form>
             <div id="container">
               <div id="infobox"></div>
@@ -242,19 +205,14 @@
   <!-- // <script src="/js/jquery.js"></script> -->
 
   <!-- Bootstrap Core JavaScript -->
-  <!-- // <script src="/js/bootstrap.min.js"></script> -->
+  <script src="/js/bootstrap.min.js"></script>
   <!-- // <script src="/hark/hark.bundle.js"></script> -->
   <!-- // <script src="/socket.io/socket.io.js"></script> -->
   <!-- // <script src ="js/app.js"></script> -->
   <script src="/build/dist/app.js"></script>
 
   <!-- Bottom scripts Chatbar -->
-  <script src="/chatbar/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-  <script src="/chatbar/js/joinable.js"></script>
-  <script src="/chatbar/js/resizeable.js"></script>
-  <script src="/chatbar/js/neon-api.js"></script>
-  <script src="/chatbar/js/neon-chat.js"></script>
-  <script src="/chatbar/js/neon-custom.js"></script>
+
   <!-- // <script src="/chatbar/js/jquery-1.11.3.min.js"></script> -->
 
 </body>

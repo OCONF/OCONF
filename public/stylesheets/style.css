@@ -1,6 +1,6 @@
-html, body{
-  margin:0px;
-  height:100%;
+html, body {
+  margin: 0px;
+  height: 100%;
   background: black;
 }
 .speaker {
@@ -17,16 +17,15 @@ html, body{
   margin-right: auto;
   display: inline-block;
   background-size: contain;
-  border-radius:8px;
+  border-radius: 8px;
   border: 2px solid gray;
   margin-right: 3px;
 }
 .peervideo {
-  height:200px;
+  height: 200px;
 }
-
 .unicorn {
-  border-radius:8px;
+  border-radius: 8px;
   border: 2px solid gray;
   background: url('../img/angryunicorn1.png') no-repeat;
   background-position: 50% 50%;
@@ -34,9 +33,8 @@ html, body{
   height: 200px;
   width: 261px;
 }
-
 .unicorn-self {
-  border-radius:8px;
+  border-radius: 8px;
   border: 2px solid gray;
   background: url('../img/angryunicorn.png') no-repeat;
   background-position: 50% 50%;
@@ -44,15 +42,12 @@ html, body{
   height: 480px;
   width: 640px;
 }
-
 .unicorn-self > video {
   display: none;
 }
-
 .unicorn > video {
   display: none;
 }
-
 .videodiv {
   position: relative;
   float: left;
@@ -62,9 +57,9 @@ html, body{
 }
 #whiteboard {
   position: relative;
-   display: block;
-   border: 1px solid black;
-   cursor: pointer;
+  display: block;
+  border: 1px solid black;
+  cursor: pointer;
 }
 #yellow {
   color: #FFFF00;
@@ -93,4 +88,41 @@ html, body{
 }
 .modal-backdrop.fade.in {
   opacity: 0;
+}
+#peek {
+  z-index: 2000;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  width: 400px;
+  top: 0;
+  right: 0;
+  float: right;
+  position: relative;
+  left: 15px;
+  background-color: #124313;
+  border: 0.1em solid #bbb;
+  border-radius: 0.5em;
+}
+#chat-history {
+  z-index: 0;
+  list-style-type: none;
+  max-width: 278px;
+  word-wrap: break-word;
+  border: 1px solid black;
+  max-width: 350px;
+  max-height: 200px;
+  overflow: auto;
+  z-index: 10;
+}
+#message-input {
+  z-index: 2000;
+  width: 20em;
+  height: 5em;
+  padding: 1em;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 1.1em;
+  max-height: 15em;
+  max-width: 350px;
+  border: 0.1em solid #ccc;
 }
