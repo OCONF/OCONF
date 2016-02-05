@@ -98,14 +98,18 @@ io.on('connection', socket => {
       line: data.line,
       color: data.color,
       size: data.size
-    });
-  });
 
-  // clear screen
-  socket.on('clear', data => {
-    history[data.room] = [];
-    // send clear to all clients
-    io.to(data.room).emit('clear', {});
+	// clear screen
+	socket.on('clear', data => {
+		history[data.room] = [];
+		// send clear to all clients
+		io.to(data.room).emit('clear', {});
+	});
+
+  socket.on('speaking', data => {
+    io.to(data.room).emit('audioFocus', {
+      id: data.id,
+    });
   });
 
   socket.on('speaking', (data) => audioThrottle(data));
