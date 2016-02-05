@@ -98,6 +98,8 @@ io.on('connection', socket => {
       line: data.line,
       color: data.color,
       size: data.size
+    });
+  });
 
 	// clear screen
 	socket.on('clear', data => {
