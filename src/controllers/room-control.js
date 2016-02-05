@@ -1,5 +1,5 @@
 'use strict';
-import jq from 'jquery';
+import $ from 'jquery';
 import randomWord from 'random-words';
 import { Skynet } from '../index';
 
@@ -22,21 +22,21 @@ function getRandomRoom() {
 
 export function userModal(callback) {
   // window.user = prompt('What is your name?');
-  jq('#userModal').modal('toggle');
-  jq('#room-share').text(window.location.href);
-  jq('#username').focus();
-  jq('#username').on('keypress', (e) => {
+  $('#userModal').modal('toggle');
+  $('#room-share').text(window.location.href);
+  $('#username').focus();
+  $('#username').on('keypress', (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      jq('#user-okay').trigger('click');
+      $('#user-okay').trigger('click');
     }
   });
-  jq('#user-okay').on('click', () => {
-    window.user = jq('#username').val();
+  $('#user-okay').on('click', () => {
+    window.user = $('#username').val();
     Skynet.setUserData({
       displayName: window.user,
     });
-    // jq('#userModal').modal('hide');
+    // $('#userModal').modal('hide');
     callback();
   });
 }

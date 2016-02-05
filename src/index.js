@@ -12,11 +12,7 @@ import $ from 'jquery';
 global.$ = $;
 import bootstrap from 'bootstrap';
 global.bootstrap = bootstrap;
-import {
-  audioMuteControl,
-  videoMuteControl,
-  screenShare,
-  sendFile } from './controllers/button-control';
+import { buttons } from './controllers/button-control';
 import {
   sendMessage,
   addMessage,
@@ -37,11 +33,12 @@ export const userData = {
 function App() {
   // On load, initialize new Skylink connection
   initializeSkylink();
+  buttons();
   // Initialize UI controls
-  audioMuteControl();
-  videoMuteControl();
-  screenShare();
-  sendFile();
+  // audioMuteControl();
+  // videoMuteControl();
+  // screenShare();
+  // sendFile();
 
   // Initialize message controls
   addMessage();

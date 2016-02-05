@@ -1,4 +1,4 @@
-import jq from 'jquery';
+import $ from 'jquery';
 import { userData } from '../index';
 
 const socket  = io.connect();
@@ -8,20 +8,20 @@ socket.on('connect', () => {
   socket.emit('room', window.room);
 });
 socket.on('audioFocus', (data) => {
-  let myVideo = jq(`#myvideo`);
-  let peerVideo = jq(`#${data.id}`);
+  let myVideo = $(`#myvideo`);
+  let peerVideo = $(`#${data.id}`);
   // if myself, move me up
   if (data.id === userData.id) {
     if (myVideo.parent()[0].id !== 'speaker') {
       removeLastFocus();
-      jq('#speaker').append(myVideo);
+      $('#speaker').append(myVideo);
       myVideo.removeClass('peervideo');
       myVideo[0].play();
     }
   } else if (peerVideo[0]) {
     // otherwise move peer up
     removeLastFocus();
-    jq('#speaker').append(peerVideo);
+    $('#speaker').append(peerVideo);
     peerVideo.removeClass('peervideo');
     peerVideo[0].play();
   }
@@ -35,11 +35,11 @@ export default function isTalking(userId) {
 }
 
 function removeLastFocus() {
-  let lastSpeaker = jq('#speaker').children();
+  let lastSpeaker = $('#speaker').children();
   if (lastSpeaker.length) {
-    let id = jq('#speaker').children()[0].id;
+    let id = $('#speaker').children()[0].id;
     let place = id !== 'myvideo' ? `video${id}` : 'self';
-    jq(`#${place}`).append(lastSpeaker);
+    $(`#${place}`).append(lastSpeaker);
     lastSpeaker.addClass('peervideo');
     lastSpeaker[0].play();
   }
