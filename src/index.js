@@ -27,9 +27,9 @@ import {
   addMessage,
 } from './controllers/chat-control';
 import isTalking from './controllers/audio-focus-control';
-import whiteboard from './controllers/whiteboard-control';
-import { chooseRoom } from './controllers/room-control';
 import { getKey } from '../config';
+import socketsCtrl from './controllers/socket-control';
+import chooseRoom from './controllers/room-control';
 import hark from 'hark';
 import _ from 'lodash';
 export const Skynet = new window.Skylink();
@@ -114,7 +114,7 @@ function App() {
       },
     });
   });
-  whiteboard();
+  socketsCtrl();
 }
 
 chooseRoom(() => {
