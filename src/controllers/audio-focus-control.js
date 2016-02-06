@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { userData } from '../index';
-
-const socket  = io.connect();
+import io from 'socket.io-client';
+const socket = io.connect();
 //set room
 socket.on('connect', () => {
   // Connected, let's sign-up for to receive messages for this room
