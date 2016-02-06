@@ -1,11 +1,9 @@
 import $ from 'jquery';
-import { addMessage } from '../controllers/chat-control';
-import { userData } from '../index';
 
 /**
 * @function peerJoined
 */
-export function peerJoined(peerId, peerInfo, isSelf) {
+export function peerJoined(peerId, peerInfo, isSelf, userData, addMessage) {
   const user = isSelf ? 'You' : peerInfo.userData.displayName;
   addMessage(user + ' joined the room', 'action');
   if (isSelf) return;
@@ -28,7 +26,7 @@ export function peerJoined(peerId, peerInfo, isSelf) {
 /**
 * @function peerLeft
 */
-export function peerLeft(peerId, peerInfo, isSelf) {
+export function peerLeft(peerId, peerInfo, isSelf, userData, addMessage) {
   if (isSelf) return;
   // this should remove the peer, 
   else if ($(`#video${peerId}`)) {
@@ -43,7 +41,7 @@ export function peerLeft(peerId, peerInfo, isSelf) {
 /**
 * @function peerUpdated
 */
-export function peerUpdated (peerId, peerInfo, isSelf) {
+export function peerUpdated (peerId, peerInfo, isSelf, userData, addMessage) {
   const videoStatus = peerInfo.mediaStatus.videoMuted;
   const speaker = !isSelf ? $(`#${peerId}`).parent()[0] : $('#myvideo').parent()[0];
   if (speaker.id === 'speaker') {

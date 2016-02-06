@@ -8,10 +8,9 @@
  * Controls the app, imports other functionality
  *
  */
-import $ from 'jquery';
-global.$ = $;
-import bootstrap from 'bootstrap';
-global.bootstrap = bootstrap;
+global.jQuery = require('jquery');
+global.io = require('socket.io-client');
+require('bootstrap');
 import { buttons } from './controllers/button-control';
 import {
   sendMessage,

@@ -16,6 +16,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var mochify = require('mochify');
 
 var GULP_FILE = ['gulpfile.js'];
 var SRC_FILES = ['src/**/*.js'];
@@ -47,7 +48,7 @@ gulp.task('eslint', function () {
         .pipe(eslint.failAfterError());
 });
 
-gulp.task('test', function (done) {
+/*gulp.task('test', function (done) {
   gulp.src(SRC_FILES)
     .pipe(istanbul({
       instrumenter: isparta.Instrumenter,
@@ -67,6 +68,15 @@ gulp.task('test', function (done) {
         }))
         .on('finish', done);
     });
+});*/
+
+gulp.task('test', function (done) {
+  mochify(TEST_FILES, {
+    report: 'tap',
+    cover: true
+  })
+  .transform(babelify)
+  .bundle();
 });
 
 gulp.task('compile', function (done) {

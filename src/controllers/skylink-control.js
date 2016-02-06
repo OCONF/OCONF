@@ -34,9 +34,12 @@ export function initializeSkylink() {
   });
   
   // Peer Control
-  Skynet.on('peerLeft', peerLeft);
-  Skynet.on('peerJoined', peerJoined);
-  Skynet.on('peerUpdated', peerUpdated);
+  Skynet.on('peerLeft', (peerId, peerInfo, isSelf) => 
+    peerLeft(peerId, peerInfo, isSelf, userData, addMessage));
+  Skynet.on('peerJoined', (peerId, peerInfo, isSelf) =>
+   peerJoined(peerId, peerInfo, isSelf, userData, addMessage));
+  Skynet.on('peerUpdated', (peerId, peerInfo, isSelf) =>
+   peerUpdated(peerId, peerInfo, isSelf, userData, addMessage));
 
   Skynet.on('dataTransferState', fileTransfer);
 
