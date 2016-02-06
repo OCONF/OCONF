@@ -1,7 +1,5 @@
 import $ from 'jquery';
-import {
-  Skynet,
-} from '../index';
+import { Skynet } from '../index';
 
 export function sendMessage() {
   const input = document.getElementById('message-input');
@@ -12,7 +10,6 @@ export function sendMessage() {
     }
   };
 }
-
 
 function scrollToBottom() {
   $('#chat-history').scrollTop($('#chat-history')[0].scrollHeight);
@@ -27,12 +24,12 @@ export function addMessage(message, className) {
   scrollToBottom();
 }
 
-export function button() {
+export function slide() {
   $('#peek').on('click', function() {
-    var $this = $(this);
+    const $this = $(this);
     if ($this.hasClass('open')) {
       $(document).keyup(function(e) {
-        if (e.keyCode == 27) { 
+        if (e.keyCode == 27) {
           $this.animate({
             left: '360px'
           }, 500).removeClass('open');
@@ -44,4 +41,17 @@ export function button() {
       }, 500).addClass('open');
     }
   });
+}
+
+export function slideButton() {
+  const peek = $('#peek');
+  if (peek.hasClass('open')) {
+    peek.animate({
+      left: '360px'
+    }, 500).removeClass('open');
+  } else {
+    peek.animate({
+      left: 0
+    }, 500).addClass('open');
+  }
 }
