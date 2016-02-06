@@ -9,16 +9,12 @@
   <script src="//cdn.temasys.com.sg/skylink/skylinkjs/0.6.9/skylink.complete.js"></script>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css">
   <!-- jquert ui -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
   <!-- custom css -->
   <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
 
-  <!--[if lt IE]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 
 <body class="page-body">
@@ -26,22 +22,38 @@
     <!-- add class ^^ "chat-visible" to make chat appear always -->
     <div class="main-content">
       <div class="row">
-        <nav>
+        <nav id="nav">
           <button id="audio-mute" class="btn btn-success glyphicon glyphicon-volume-down"></button>
           <button id="video-mute" class="btn btn-success glyphicon glyphicon-facetime-video"></button>
           <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
           <button id="share-file" class="btn btn-success glyphicon glyphicon-share" data-toggle="modal" data-target="#fileModal"></button>
           <button id="white-board" class="btn btn-success glyphicon glyphicon-pencil" data-toggle="modal" data-target="#whiteboardModal"></button>
-          <button id="white-board" class="btn btn-success glyphicon glyphicon-comment" data-toggle="chat" data-collapse-sidebar="1"> </button>
-          <!-- <button href="#" data-toggle="chat" data-collapse-sidebar="1" class="btn btn-success">
-            <i class="entypo-chat"></i> Chat
-            <span class="badge badge-success chat-notifications-badge is-hidden">0</span>
-          </button> -->
+          <button id="slideButton" class="btn btn-success glyphicon glyphicon-comment"> </button>
         </nav>
+
+
       </div>
-      <hr />
       <div class="row">
         <div class="col-md-12">
+          <!-- chat start -->
+          <div id="peek">
+            <div class="chat">
+              <div class="chat-about">
+                <div class="chat-with"><i class="fa fa-star">OCONF.CHAT</i></div>
+              </div>
+
+              <!-- end chat-header -->
+              <div>
+                <ul id="chat-history">
+                </ul>
+              </div>
+              <!-- end chat-history -->
+              <div class="chat-message clearfix">
+                <textarea id="message-input" placeholder="Type your message" rows="2"></textarea>
+              </div>
+            </div>
+          </div>
+          <!-- end chat -->
           <div id="speaker">
 
           </div>
@@ -54,30 +66,7 @@
       </div>
     </div>
 
-    <!-- chat start -->
-    <div id="peek">
-      <div class="container clearfix" class="test">
-        <div class="chat">
-          <div class="chat-header clearfix">
-            <div class="chat-about">
-              <div class="chat-with">OCONF.CHAT</div>
-              <div class="chat-num-messages"></div>
-            </div>
-            <i class="fa fa-star"></i>
-          </div>
-          <!-- end chat-header -->
-          <div>
-            <ul id="chat-history">
-            </ul>
-          </div>
-          <!-- end chat-history -->
-          <div class="chat-message clearfix">
-            <textarea name="message-to-send" id="message-input" placeholder="Type your message" rows="3"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end chat -->
+
 
     <!-- user info modal -->
     <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username">

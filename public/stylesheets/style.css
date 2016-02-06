@@ -12,7 +12,7 @@ html, body {
   height: 100%;
 }
 .videocontainer {
-  position: relative;
+  position: center;
   margin-left: auto;
   margin-right: auto;
   display: inline-block;
@@ -90,7 +90,7 @@ html, body {
   opacity: 0;
 }
 #peek {
-  z-index: 2000;
+  z-index: 1000;
   display: inline-block;
   width: 100%;
   height: 100%;
@@ -100,24 +100,27 @@ html, body {
   float: right;
   position: relative;
   left: 15px;
-  background-color: #124313;
+  background-color: #343a45;
   border: 0.1em solid #bbb;
-  border-radius: 0.5em;
+  border-radius: 0.25em;
+  color: #fff;
+  z-index: 10;
 }
 #chat-history {
-  z-index: 0;
   list-style-type: none;
   max-width: 278px;
   word-wrap: break-word;
   border: 1px solid black;
   max-width: 350px;
-  max-height: 200px;
+  max-height: 50vh;
   overflow: auto;
   z-index: 10;
+  padding: 20px 24px;
+  font-size: 14px;
+  color: #fff;
 }
 #message-input {
-  z-index: 2000;
-  width: 20em;
+  width: 350px;
   height: 5em;
   padding: 1em;
   font-family: "Montserrat", "sans-serif";
@@ -125,4 +128,11 @@ html, body {
   max-height: 15em;
   max-width: 350px;
   border: 0.1em solid #ccc;
+  color: black;
+}
+#nav {
+    border:1px solid #ccc;
+    list-style:none;
+    padding: 5px 5px 5px 5px;
+    text-align:center;
 }

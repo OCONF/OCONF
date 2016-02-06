@@ -2,6 +2,7 @@
 import $ from 'jquery';
 import { Skynet } from '../index';
 import { userData } from '../index';
+import { slideButton } from './chat-control';
 
 import {
   audioMuteControl,
@@ -27,4 +28,6 @@ export function buttons() {
   $('#share-screen').on('click', screenShare);
 
   $('#send-file').on('click', sendFile);
+
+  $('#slideButton').on('click', slideButton);
 }
