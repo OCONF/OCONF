@@ -32,8 +32,7 @@ export function button() {
     var $this = $(this);
     if ($this.hasClass('open')) {
       $(document).keyup(function(e) {
-        if (e.keyCode == 27) { // escape key maps to keycode `27`
-          // <DO YOUR WORK HERE>
+        if (e.keyCode == 27) { 
           $this.animate({
             left: '360px'
           }, 500).removeClass('open');

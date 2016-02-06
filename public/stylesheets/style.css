@@ -100,9 +100,10 @@ html, body {
   float: right;
   position: relative;
   left: 15px;
-  background-color: #124313;
+  background-color: #343a45;
   border: 0.1em solid #bbb;
   border-radius: 0.5em;
+  color: #fff;
 }
 #chat-history {
   z-index: 0;
@@ -114,6 +115,9 @@ html, body {
   max-height: 200px;
   overflow: auto;
   z-index: 10;
+  padding: 20px 24px;
+  font-size: 14px;
+  color: #fff;
 }
 #message-input {
   z-index: 2000;
@@ -125,4 +129,5 @@ html, body {
   max-height: 15em;
   max-width: 350px;
   border: 0.1em solid #ccc;
+  color: black;
 }
