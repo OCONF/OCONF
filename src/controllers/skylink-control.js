@@ -30,7 +30,7 @@ export function initializeSkylink() {
       user = peerInfo.userData.displayName || 'Tacocat';
       className = 'message';
     }
-    addMessage(`${user}: ${message.content}`, className);
+    addMessage(user, message.content.message, message.content.type, className);
   });
   
   // Peer Control

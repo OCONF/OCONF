@@ -28,7 +28,7 @@ export function peerJoined(peerId, peerInfo, isSelf, userData, addMessage) {
 */
 export function peerLeft(peerId, peerInfo, isSelf, userData, addMessage) {
   if (isSelf) return;
-  // this should remove the peer, 
+  // this should remove the peer,
   else if ($(`#video${peerId}`)) {
     // handling if peer is the speaker, this will ensure speaker is removed
     const user = peerInfo.userData.displayName || peerId;
