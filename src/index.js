@@ -20,6 +20,7 @@ import {
 import { initializeSkylink } from './controllers/skylink-control';
 import socketsCtrl from './controllers/socket-control';
 import { chooseRoom } from './controllers/room-control';
+import createEditor from './controllers/editor-control';
 export const Skynet = new window.Skylink();
 export const userData = {
   id: '',
@@ -47,6 +48,7 @@ function App() {
   slideButton();
   // Initialize peer controllers
   socketsCtrl();
+  createEditor();
 }
 
 chooseRoom(() => {
