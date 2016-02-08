@@ -3,8 +3,10 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/autorefresh');
 import $ from 'jquery';
 
+let editor;
+
 export default function createEditor() {
-    const editor = CodeMirror(document.getElementById('text-editor'), {
+    editor = CodeMirror(document.getElementById('text-editor'), {
     lineNumbers: true,
     autoRefresh: true,
     extraKeys: {
@@ -15,4 +17,17 @@ export default function createEditor() {
       globalVars: true,
     },
   });
+  $('#textModal').draggable({ cursor: "move", handle: '.modal-header'});
+}
+
+export function sendData(socket, userId) {
+  socket.emit('textChange', {
+    text: editor.getValue(),
+    room: window.room,
+    senderId: userId,
+  });
+}
+
+export function setData(data, userId) {
+  if (data.senderId !== userId) editor.setValue(data.text);
 }

@@ -47,7 +47,7 @@ function App() {
   slide();
   slideButton();
   // Initialize peer controllers
-  socketsCtrl();
+  socketsCtrl(userData.id);
   createEditor();
 }
 
