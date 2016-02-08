@@ -2,11 +2,30 @@ import $ from 'jquery';
 import { Skynet } from '../index';
 
 export function sendMessage() {
-  const input = document.getElementById('message-input');
+  const input = $('#message-input')[0];
+  let message;
   input.onkeyup = function(e) {
     if (e.keyCode == 13 && !e.shiftKey) {
-      Skynet.sendMessage(input.value);
-      input.value = '';
+      let text = input.value;
+      if (['/giphy'].some(function(giphy) { return text.toLowerCase().indexOf(giphy) === 0; })) {
+        let gif = text.replace('/giphy ', '').split(' ').join('+');
+        getGiphy(gif, function(giphy) {
+          message = {
+            type: 'gif',
+            message: `<p>/giphy ${gif}</p> <img src="${giphy}">`,
+          }
+          Skynet.sendMessage(message);
+          input.value = '';
+        });
+      } else {
+        message = {
+            type: 'text',
+            message: text,
+          }
+        Skynet.sendMessage(message);
+        input.value = '';
+        
+      }
     }
   };
 }
@@ -15,12 +34,21 @@ function scrollToBottom() {
   $('#chat-history').scrollTop($('#chat-history')[0].scrollHeight);
 }
 
-export function addMessage(message, className) {
-  const chatbox = document.getElementById('chat-history');
-  const li = document.createElement('li');
-  li.className = className;
-  li.textContent = message;
-  chatbox.appendChild(li);
+export function addMessage(user, message, type, className) {
+  const chatbox = $('#chat-history');
+  const li = $('<li>');
+  var content = `<p>${user}: </p><span>`;
+
+  if(type === 'text') {
+    content += message.replace( /[<>]/ig, '' );
+  }
+  if(type === 'gif') {
+      content += message
+  }
+  content += '</span>';
+  let $content = $(content);
+  li.append($content);
+  li.appendTo(chatbox);
   scrollToBottom();
 }
 
@@ -54,4 +82,22 @@ export function slideButton() {
       left: 0
     }, 500).addClass('open');
   }
+}
+
+
+function getGiphy(gif, cb) {
+  let url = `http://api.giphy.com/v1/gifs/translate?api_key=dc6zaTOxFJmzC&s=${gif}`;
+  let xhr = new XMLHttpRequest();
+
+  xhr.open('GET', url);
+  xhr.onload = () => {
+    let json = JSON.parse(xhr.response);
+    let gif = json.data.images.fixed_height.url;
+    cb(gif);
+
+  };
+  xhr.onerror = function(){
+    console.log(e);
+  };
+  xhr.send();
 }
