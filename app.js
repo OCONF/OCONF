@@ -84,7 +84,7 @@ io.on('connection', socket => {
       socket.emit('draw_line', {
         line: history[data.room][line].line,
         color: history[data.room][line].color,
-        size: history[data.room][line].size 
+        size: history[data.room][line].size
       });
     }
   });
@@ -115,6 +115,15 @@ io.on('connection', socket => {
   });
 
   socket.on('speaking', (data) => audioThrottle(data));
+
+  // Text Editor Handling
+  socket.on('textChange', data => {
+    io.to(data.room).emit('setData', {
+      text: data.text,
+      senderId: data.senderId,
+    });
+  });
+
 });
 
 

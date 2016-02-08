@@ -1,9 +1,11 @@
 'use strict';
-import jq from 'jquery';
+import $ from 'jquery';
 import jqUi from 'jquery-ui';
 import {wbInit, clearScreen, drawLines, listenClearScreen, resizing} from './whiteboard-control';
+import { sendData, setData } from './editor-control';
+import io from 'socket.io-client';
 
-export default function () {
+export default function (userId) {
 	const canvas  = document.getElementById('whiteboard');
 	const mouse = {
 			click: false,
@@ -15,7 +17,7 @@ export default function () {
 	const wb = wbInit();
 	// create context
 	const context = canvas.getContext('2d');
-	
+
 	// initialize socket
 	const socket  = io.connect();
 	// set room
@@ -24,7 +26,7 @@ export default function () {
 	});
 
 
-	jq('#white-board').on('click', function () {
+	$('#white-board').on('click', function () {
 		// set canvas to fit in the modal
 		canvas.width = wb.width - 80;
 		canvas.height = wb.height - 86;
@@ -57,7 +59,7 @@ export default function () {
 		};
 
 
-		
+
 		// draw line received from server
 		drawLines(socket, context, wb);
 
@@ -69,7 +71,14 @@ export default function () {
 
 		// resize modal
 		resizing(socket, canvas, wb);
-		
+
 		mainLoop();
 	});
+
+		// Text editor controls
+		$('#text-editor').on('keyup', () => {
+			sendData(socket, userId);
+		});
+
+		socket.on('setData', data => setData(data, userId));
 };
