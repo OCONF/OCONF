@@ -17,6 +17,8 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var mochify = require('mochify');
+var watchify = require('watchify');
+var merge = require('utils-merge');
 
 var GULP_FILE = ['gulpfile.js'];
 var SRC_FILES = ['src/**/*.js'];
@@ -26,6 +28,14 @@ var COVERAGE_REPORT_DIR = 'public/build/coverage';
 var COMPILED_SRC_DIR = 'public/build/dist';
 var COMPILED_SRC_FILES = [COMPILED_SRC_DIR + '/**/*.js'];
 var JSDOC_DIR = 'public/build/jsdoc';
+var bundler = watchify(browserify())
+function bundle(bundler) {
+  return bundler.bundle()
+    .on('error', function (err) { console.error(err); })
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(COMPILED_SRC_DIR));
+}
 
 gulp.task('jshint', function (done) {
   gulp.src(GULP_FILE.concat(SRC_FILES, TEST_FILES))
@@ -42,8 +52,8 @@ gulp.task('jscs', function (done) {
 });
 
 gulp.task('eslint', function () {
-    return gulp.src(['src/*.js','!node_modules/**', '!public/**']) 
-        .pipe(eslint()) 
+    return gulp.src(['src/*.js','!node_modules/**', '!public/**'])
+        .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
 });
@@ -91,15 +101,24 @@ gulp.task('bundle', function (done) {
   var bundler = browserify({
     entries: './src/index.js',
     debug: true
-  });
-  bundler
-    .transform(babelify)
-    .bundle()
-    .on('error', function (err) { console.error(err); })
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(COMPILED_SRC_DIR));
+  })
+    .transform(babelify);
+
+  return bundle(bundler);
 });
+
+gulp.task('watch', function(done) {
+  var args = merge(watchify.args, { degbug: true});
+  var bundler = watchify(browserify('./src/index.js', args)).transform(babelify);
+
+  bundle(bundler);
+
+  bundler.on('update', function() {
+    bundle(bundler);
+    console.log('Finished bundling!');
+  });
+});
+
 
 gulp.task('jsdoc', ['compile'], function (done) {
   gulp.src(COMPILED_SRC_FILES)
