@@ -55,7 +55,9 @@
     "mocha-jsdom": "^1.0.0",
     "mochify": "^2.16.0",
     "pre-commit": "^1.1.2",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "utils-merge": "^1.0.0",
+    "watchify": "^3.7.0"
   },
   "dependencies": {
     "babel-register": "^6.4.3",

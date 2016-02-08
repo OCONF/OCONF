@@ -1,11 +1,11 @@
 import CodeMirror from 'codemirror';
-require('codemirror/mode/javascript/javascript');
-require('codemirror/addon/display/autorefresh');
-require('codemirror/addon/hint/show-hint');
-require('codemirror/addon/hint/javascript-hint');
-require('codemirror/keymap/sublime');
-require('codemirror/addon/edit/matchbrackets');
-require('codemirror/addon/edit/closebrackets');
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/display/autorefresh';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/javascript-hint';
+import 'codemirror/keymap/sublime';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/closebrackets';
 import $ from 'jquery';
 
 let editor;
