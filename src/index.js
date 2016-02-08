@@ -10,7 +10,7 @@
  */
 global.jQuery = require('jquery');
 global.io = require('socket.io-client');
-require('bootstrap');
+import 'bootstrap';
 import { buttons } from './controllers/button-control';
 import {
   sendMessage,
