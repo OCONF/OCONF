@@ -1,6 +1,11 @@
 import CodeMirror from 'codemirror';
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/autorefresh');
+require('codemirror/addon/hint/show-hint');
+require('codemirror/addon/hint/javascript-hint');
+require('codemirror/keymap/sublime');
+require('codemirror/addon/edit/matchbrackets');
+require('codemirror/addon/edit/closebrackets');
 import $ from 'jquery';
 
 let editor;
@@ -16,6 +21,10 @@ export default function createEditor() {
       name: 'javascript',
       globalVars: true,
     },
+    theme: 'lesser-dark',
+    keyMap: 'sublime',
+    matchBrackets: true,
+    autoCloseBrackets: true,
   });
   $('#textModal').draggable({ cursor: "move", handle: '.modal-header'});
 }
