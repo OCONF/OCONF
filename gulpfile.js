@@ -28,7 +28,7 @@ var COVERAGE_REPORT_DIR = 'public/build/coverage';
 var COMPILED_SRC_DIR = 'public/build/dist';
 var COMPILED_SRC_FILES = [COMPILED_SRC_DIR + '/**/*.js'];
 var JSDOC_DIR = 'public/build/jsdoc';
-var bundler = watchify(browserify())
+
 function bundle(bundler) {
   return bundler.bundle()
     .on('error', function (err) { console.error(err); })
@@ -115,7 +115,10 @@ gulp.task('watch', function(done) {
 
   bundler.on('update', function() {
     bundle(bundler);
-    console.log('Finished bundling!');
+  });
+
+  bundler.on('time', function(time) {
+    console.log('Bundle created in ' + time + ' ms');
   });
 });
 
