@@ -1,6 +1,5 @@
 import { Skynet } from '../index';
 import {
-  sendMessage,
   addMessage,
 } from './chat-control';
 import { userData } from '../index';
@@ -35,11 +34,11 @@ export function initializeSkylink() {
   
   // Peer Control
   Skynet.on('peerLeft', (peerId, peerInfo, isSelf) => 
-    peerLeft(peerId, peerInfo, isSelf, userData, addMessage));
+    peerLeft(peerId, peerInfo, isSelf, userData));
   Skynet.on('peerJoined', (peerId, peerInfo, isSelf) =>
-   peerJoined(peerId, peerInfo, isSelf, userData, addMessage));
+   peerJoined(peerId, peerInfo, isSelf, userData));
   Skynet.on('peerUpdated', (peerId, peerInfo, isSelf) =>
-   peerUpdated(peerId, peerInfo, isSelf, userData, addMessage));
+   peerUpdated(peerId, peerInfo, isSelf, userData));
 
   Skynet.on('dataTransferState', fileTransfer);
 

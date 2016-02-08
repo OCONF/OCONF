@@ -3,9 +3,7 @@ import $ from 'jquery';
 /**
 * @function peerJoined
 */
-export function peerJoined(peerId, peerInfo, isSelf, userData, addMessage) {
-  const user = isSelf ? 'You' : peerInfo.userData.displayName;
-  addMessage(user + ' joined the room', 'action');
+export function peerJoined(peerId, peerInfo, isSelf, userData) {
   if (isSelf) return;
   userData.peerJoining = true;
   const displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
@@ -26,13 +24,11 @@ export function peerJoined(peerId, peerInfo, isSelf, userData, addMessage) {
 /**
 * @function peerLeft
 */
-export function peerLeft(peerId, peerInfo, isSelf, userData, addMessage) {
+export function peerLeft(peerId, peerInfo, isSelf, userData) {
   if (isSelf) return;
   // this should remove the peer,
   else if ($(`#video${peerId}`)) {
     // handling if peer is the speaker, this will ensure speaker is removed
-    const user = peerInfo.userData.displayName || peerId;
-    addMessage(user + ' left the room', 'action');
     $(`#${peerId}`).remove();
     $(`#video${peerId}`).remove();
   }
@@ -41,7 +37,7 @@ export function peerLeft(peerId, peerInfo, isSelf, userData, addMessage) {
 /**
 * @function peerUpdated
 */
-export function peerUpdated (peerId, peerInfo, isSelf, userData, addMessage) {
+export function peerUpdated (peerId, peerInfo, isSelf, userData) {
   const videoStatus = peerInfo.mediaStatus.videoMuted;
   const speaker = !isSelf ? $(`#${peerId}`).parent()[0] : $('#myvideo').parent()[0];
   if (speaker.id === 'speaker') {
