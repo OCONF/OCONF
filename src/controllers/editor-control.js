@@ -1,13 +1,12 @@
 import CodeMirror from 'codemirror';
-require('codemirror/mode/javascript/javascript.js');
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/css/css');
-require('codemirror/mode/htmlmixed/htmlmixed');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/addon/display/autorefresh');
 import $ from 'jquery';
 
 export default function createEditor() {
-    CodeMirror(document.getElementById('text-editor'), {
-    lineNumber: true,
+    const editor = CodeMirror(document.getElementById('text-editor'), {
+    lineNumbers: true,
+    autoRefresh: true,
     extraKeys: {
       'Ctrl-Space': 'autocomplete',
     },
