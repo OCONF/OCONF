@@ -136,3 +136,7 @@ html, body {
     padding: 5px 5px 5px 5px;
     text-align:center;
 }
+
+.CodeMirror-hints {
+    z-index: 12039;
+}

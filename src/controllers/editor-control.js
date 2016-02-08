@@ -1,6 +1,8 @@
 import CodeMirror from 'codemirror';
 require('codemirror/mode/javascript/javascript');
 require('codemirror/addon/display/autorefresh');
+require('codemirror/addon/hint/show-hint');
+require('codemirror/addon/hint/javascript-hint');
 import $ from 'jquery';
 
 let editor;
