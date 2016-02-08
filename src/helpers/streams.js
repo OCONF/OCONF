@@ -19,12 +19,7 @@ export function selfStream(stream) {
 }
 
 export function peerStream(peerId, stream, isSelf) {
-  // Grabbing our user id if the incoming stream is self but not
-  // doing anything with the stream because we have it locally
-  if (isSelf) {
-    userData.id = peerId;
-    return;
-  }
+  if (isSelf) return;
   const vid = $(`#${peerId}`)[0];
   attachStream(vid, stream);
   userData.peerJoining = false;

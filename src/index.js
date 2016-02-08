@@ -23,7 +23,7 @@ import { chooseRoom } from './controllers/room-control';
 import createEditor from './controllers/editor-control';
 export const Skynet = new window.Skylink();
 export const userData = {
-  id: '',
+  id: Skynet.generateUUID(),
   audioMuted: false,
   videoMuted: false,
   screenShared: false,
