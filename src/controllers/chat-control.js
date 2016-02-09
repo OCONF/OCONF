@@ -6,13 +6,17 @@ export function sendMessage() {
   let message;
   input.onkeyup = function(e) {
     if (e.keyCode == 13 && !e.shiftKey) {
-      let text = input.value;
+      let text = input.value.trim();
+      if (text === '') {
+        input.value = '';
+        return;
+      }
       if (['/giphy'].some(function(giphy) { return text.toLowerCase().indexOf(giphy) === 0; })) {
         let gif = text.replace('/giphy ', '').split(' ').join('+');
         getGiphy(gif, function(giphy) {
           message = {
             type: 'gif',
-            message: `<p>/giphy ${gif}</p> <img src="${giphy}">`,
+            message: `<p>${text}</p> <img src="${giphy}">`,
           }
           Skynet.sendMessage(message);
           input.value = '';
@@ -35,6 +39,9 @@ function scrollToBottom() {
 }
 
 export function addMessage(user, message, type, className) {
+  if (!user) {
+    return;
+  }
   const chatbox = $('#chat-history');
   const li = $('<li>');
   var content = `<p>${user}: </p><span>`;
