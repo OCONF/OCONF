@@ -24,7 +24,7 @@ export function sendMessage() {
           }
         Skynet.sendMessage(message);
         input.value = '';
-        
+
       }
     }
   };
@@ -59,7 +59,7 @@ export function slide() {
       $(document).keyup(function(e) {
         if (e.keyCode == 27) {
           $this.animate({
-            left: '360px'
+            left: '500px'
           }, 500).removeClass('open');
         }
       });
@@ -75,7 +75,7 @@ export function slideButton() {
   const peek = $('#peek');
   if (peek.hasClass('open')) {
     peek.animate({
-      left: '360px'
+      left: '500px'
     }, 500).removeClass('open');
   } else {
     peek.animate({
