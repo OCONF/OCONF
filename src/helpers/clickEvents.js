@@ -5,9 +5,9 @@ import { userData } from '../index';
 export function audioMuteControl() {
   userData.audioMuted = !userData.audioMuted;
   if (userData.audioMuted) {
-    $('#audio-mute').removeClass('btn-success glyphicon-volume-down').addClass('btn-danger glyphicon-volume-off');
+    $('#audio-mute').removeClass('btn-success').addClass('btn-danger');
   } else {
-    $('#audio-mute').removeClass('btn-danger glyphicon-volume-off').addClass('btn-success glyphicon-volume-down');
+    $('#audio-mute').removeClass('btn-danger').addClass('btn-success');
   }
   Skynet.muteStream(
     { audioMuted: userData.audioMuted }
