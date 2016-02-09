@@ -130,13 +130,16 @@ html, body {
   border: 0.1em solid #ccc;
   color: black;
 }
-#nav {
-    border:1px solid #ccc;
-    list-style:none;
-    padding: 5px 5px 5px 5px;
-    text-align:center;
-}
-
 .CodeMirror-hints {
     z-index: 12039;
+}
+body {
+  padding-top: 65px;
+}
+#nav-buttons {
+  padding: 7px 15px;
+}
+.navbar-default .navbar-brand {
+  color: #1abc9c;
+  font-weight: bold;
 }

@@ -18,196 +18,233 @@
   <link rel="stylesheet" href="/codemirror/theme/lesser-dark.css">
   <!-- custom css -->
   <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
-
 </head>
 
-<body class="page-body">
-  <div class="page-container">
-    <!-- add class ^^ "chat-visible" to make chat appear always -->
-    <div class="main-content">
-      <div class="row">
-        <nav id="nav">
-          <button id="audio-mute" class="btn btn-success glyphicon glyphicon-volume-down"></button>
-          <button id="video-mute" class="btn btn-success glyphicon glyphicon-facetime-video"></button>
-          <button id="share-screen" class="btn btn-success glyphicon glyphicon-unchecked"></button>
-          <button id="share-file" class="btn btn-success glyphicon glyphicon-share" data-toggle="modal" data-target="#fileModal"></button>
-          <button id="white-board" class="btn btn-success glyphicon glyphicon-pencil" data-toggle="modal" data-target="#whiteboardModal"></button>
-          <button id="editor" class="btn btn-success fa fa-font" data-toggle="modal" data-target="#textModal"></button>
-          <button id="slideButton" class="btn btn-success glyphicon glyphicon-comment"> </button>
-        </nav>
-
-
+<body>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand page-scroll" href="#page-top">OCONF</a>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <!-- chat start -->
-          <div id="peek">
-            <div class="chat">
-              <div class="chat-about">
-                <div class="chat-with"><i class="fa fa-star">OCONF.CHAT</i></div>
-              </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" id="nav-buttons">
+          <li>
+            <button id="audio-mute" class="btn btn-success">
+              <i class="fa fa-microphone"></i>
+            </button>
+          </li>
+          <li>
+            <button id="video-mute" class="btn btn-success">
+              <i class="fa fa-video-camera"></i>
+            </button>
+          </li>
+          <li>
+            <button id="share-screen" class="btn btn-success">
+              <i class="fa fa-desktop"></i>
+            </button>
+          </li>
+          <li>
+            <button id="share-file" class="btn btn-success" data-toggle="modal" data-target="#fileModal">
+              <i class="fa fa-file"></i>
+            </button>
+          </li>
+          <li>
+            <button id="white-board" class="btn btn-success" data-toggle="modal" data-target="#whiteboardModal">
+              <i class="fa fa-pencil-square-o"></i>
+            </button>
+          </li>
+          <li>
+            <button id="editor" class="btn btn-success" data-toggle="modal" data-target="#textModal">
+              <i class="fa fa-font"></i>
+            </button>
+          </li>
+          <li>
+            <button id="slideButton" class="btn btn-success">
+              <i class="fa fa-comment"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- chat start -->
+        <div id="peek">
+          <div class="chat">
+            <div class="chat-about">
+              <div class="chat-with"><i class="fa fa-star">OCONF.CHAT</i></div>
+            </div>
 
-              <!-- end chat-header -->
-              <div>
-                <ul id="chat-history">
-                </ul>
-              </div>
-              <!-- end chat-history -->
-              <div class="chat-message clearfix">
-                <textarea id="message-input" placeholder="Type your message" rows="2"></textarea>
-              </div>
+            <!-- end chat-header -->
+            <div>
+              <ul id="chat-history">
+              </ul>
+            </div>
+            <!-- end chat-history -->
+            <div class="chat-message clearfix">
+              <textarea id="message-input" placeholder="Type your message" rows="2"></textarea>
             </div>
           </div>
-          <!-- end chat -->
-          <div id="speaker">
+        </div>
+        <!-- end chat -->
+        <div id="speaker">
 
-          </div>
-          <div id="video-list">
-            <div id="self">
-              <video id="myvideo" class="videocontainer peervideo" autoplay muted></video>
-            </div>
+        </div>
+        <div id="video-list">
+          <div id="self">
+            <video id="myvideo" class="videocontainer peervideo" autoplay muted></video>
           </div>
         </div>
       </div>
     </div>
-
-
-
-    <!-- user info modal -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="usernameModalLabel">Choose a username</h4>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <div class="row">
-                  <label for="username">Please enter your name:</label>
-                  <input class="inline-block" type="text" id="username">
-                </div>
-              </div>
-            </form>
-            <div class="row">
-              <span>Use this link to share the room: <p id="room-share"></p></span>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="user-okay" data-dismiss="modal">Okay</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- text editor modal -->
-    <div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="text and code editor">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="usernameModalLabel">Awesome Editor</h4>
-          </div>
-          <div class="modal-body">
-            <div id="text-editor"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- file share modal -->
-    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="share file">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="fileModalLabel">Share File</h4>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="file">Choose file to share:</label>
-                <input type="file" id="file">
-                <p class="help-block">File will be shared with everyone in this call.</p>
-              </div>
-            </form>
-            <div id="container">
-              <div id="infobox"></div>
-            </div>
-
-            <table class="table table-hover" id="transfers">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>User Name</th>
-                  <th>File Name</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="send-file">Send File</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Whiteboard Modal -->
-    <div class="modal fade" id="whiteboardModal" tabindex="-1" role="dialog" aria-labelledby="whiteboard">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Whiteboard</h4>
-          </div>
-          <div class="modal-body">
-            <div class="conatainer-fluid">
-              <div class="btn-group-vertical" id="controls" role="group" aria-label="whiteboard-controls">
-                <button type="button" class="btn btn-default" id="clear">
-                  <i class="fa fa-file-o"></i>
-                </button>
-                <button type="button" class="btn btn-default" id="pencil" data-size="1" data-color="#000000">
-                  <i class="fa fa-pencil"></i>
-                </button>
-                <button type="button" class="btn btn-default size" id="small" data-size="1">
-                  <i class="fa fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default size" id="medium" data-size="5">
-                  <i class="fa fa-lg fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default size" id="large" data-size="10">
-                  <i class="fa fa-2x fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default color" id="eraser" data-color="#FFFFFF">
-                  <i class="fa fa-eraser"></i>
-                </button>
-                <button type="button" class="btn btn-default color" id="black" data-color="#000000">
-                  <i class="fa fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default color" id="yellow" data-color="#FFFF00">
-                  <i class="fa fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default color" id="red" data-color="#FF0000">
-                  <i class="fa fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default color" id="green" data-color="#008000">
-                  <i class="fa fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-default color" id="blue" data-color="#0000FF">
-                  <i class="fa fa-circle"></i>
-                </button>
-              </div>
-              <canvas id="whiteboard"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
+  <!-- user info modal -->
+  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="usernameModalLabel">Choose a username</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div class="row">
+                <label for="username">Please enter your name:</label>
+                <input class="inline-block" type="text" id="username">
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <span>Use this link to share the room: <p id="room-share"></p></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="user-okay" data-dismiss="modal">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- text editor modal -->
+  <div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="text and code editor">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="usernameModalLabel">Awesome Editor</h4>
+        </div>
+        <div class="modal-body">
+          <div id="text-editor"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- file share modal -->
+  <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="share file">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="fileModalLabel">Share File</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="file">Choose file to share:</label>
+              <input type="file" id="file">
+              <p class="help-block">File will be shared with everyone in this call.</p>
+            </div>
+          </form>
+          <div id="container">
+            <div id="infobox"></div>
+          </div>
+
+          <table class="table table-hover" id="transfers">
+            <thead>
+              <tr>
+                <th></th>
+                <th>User Name</th>
+                <th>File Name</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="send-file">Send File</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Whiteboard Modal -->
+  <div class="modal fade" id="whiteboardModal" tabindex="-1" role="dialog" aria-labelledby="whiteboard">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Whiteboard</h4>
+        </div>
+        <div class="modal-body">
+          <div class="conatainer-fluid">
+            <div class="btn-group-vertical" id="controls" role="group" aria-label="whiteboard-controls">
+              <button type="button" class="btn btn-default" id="clear">
+                <i class="fa fa-file-o"></i>
+              </button>
+              <button type="button" class="btn btn-default" id="pencil" data-size="1" data-color="#000000">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-default size" id="small" data-size="1">
+                <i class="fa fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default size" id="medium" data-size="5">
+                <i class="fa fa-lg fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default size" id="large" data-size="10">
+                <i class="fa fa-2x fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default color" id="eraser" data-color="#FFFFFF">
+                <i class="fa fa-eraser"></i>
+              </button>
+              <button type="button" class="btn btn-default color" id="black" data-color="#000000">
+                <i class="fa fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default color" id="yellow" data-color="#FFFF00">
+                <i class="fa fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default color" id="red" data-color="#FF0000">
+                <i class="fa fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default color" id="green" data-color="#008000">
+                <i class="fa fa-circle"></i>
+              </button>
+              <button type="button" class="btn btn-default color" id="blue" data-color="#0000FF">
+                <i class="fa fa-circle"></i>
+              </button>
+            </div>
+            <canvas id="whiteboard"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
   <!-- jQuery -->
