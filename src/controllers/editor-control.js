@@ -25,8 +25,17 @@ export default function createEditor() {
     keyMap: 'sublime',
     matchBrackets: true,
     autoCloseBrackets: true,
+    tabSize: 2,
   });
   $('#textModal').draggable({ cursor: "move", handle: '.modal-header'});
+  $('#textModal .modal-content').resizable({
+    minHeight: 430,
+    minWidth: 250,
+    resize: function(event, ui) {
+      $('.CodeMirror').css('height', $('#textModal .modal-content').innerHeight() - 100);
+      editor.refresh();
+    },
+  });
 }
 
 export function sendData(socket, userId) {
