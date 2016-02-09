@@ -142,3 +142,16 @@ body {
   color: #1abc9c;
   font-weight: bold;
 }
+
+.overlay {
+  position: absolute;
+  border-radius: 30px;
+  left: 0px;
+  top: 0px;
+  margin: 5px;
+  padding: 5px 5px;
+  font-size: 12px;
+  font-family: Helvetica;
+  color: #FFF;
+  background-color: rgba(40, 40, 40, 0.1);
+}
