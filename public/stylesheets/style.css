@@ -110,7 +110,7 @@ html, body {
   list-style-type: none;
   max-width: 400px;
   word-wrap: break-word;
-  border: 1px solid black;
+
   height: 83vh;
   overflow: auto;
   z-index: 10;
