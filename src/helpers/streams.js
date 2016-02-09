@@ -1,12 +1,12 @@
 import hark from 'hark';
 import $ from 'jquery';
 import _ from 'lodash';
-import { userData } from '../index';
 import isTalking from '../controllers/audio-focus-control';
 const attachStream = window.attachMediaStream;
 
-export function selfStream(stream) {
-  const vid = $('#myvideo')[0];
+export function selfStream(stream, userData) {
+  const vid = $('#myvideo');
+  vid.attr('data-display-name', window.user);
   const options = { threshold: -45 };
   const selfSpeech = hark(stream, options);
   const talkThrottle = _.throttle(isTalking, 3000);
@@ -15,10 +15,10 @@ export function selfStream(stream) {
       talkThrottle(userData.id);
     }
   });
-  attachStream(vid, stream);
+  attachStream(vid[0], stream);
 }
 
-export function peerStream(peerId, stream, isSelf) {
+export function peerStream(peerId, stream, isSelf, userData) {
   if (isSelf) return;
   const vid = $(`#${peerId}`)[0];
   attachStream(vid, stream);

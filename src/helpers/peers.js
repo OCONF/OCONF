@@ -17,7 +17,11 @@ export function peerJoined(peerId, peerInfo, isSelf, userData) {
     class: 'videocontainer peervideo',
     'data-display-name': displayName,
   });
-  div.append(video);
+  const overlay = $('<div />', {
+    class: 'overlay',
+  });
+  overlay.text(displayName);
+  div.append(overlay).append(video);
   $('#video-list').append(div);
 }
 

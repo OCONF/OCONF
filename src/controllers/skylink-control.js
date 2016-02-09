@@ -17,7 +17,7 @@ export function initializeSkylink() {
     storeLogs: true
   });
 
-  Skynet.on('mediaAccessSuccess', selfStream);
+  Skynet.on('mediaAccessSuccess', stream => selfStream(stream, userData));
 
   // Handle that oncoming stream, filter it into new vid elements (made by peer functions)
   Skynet.on('incomingStream', peerStream);
@@ -31,9 +31,9 @@ export function initializeSkylink() {
     }
     addMessage(user, message.content.message, message.content.type, className);
   });
-  
+
   // Peer Control
-  Skynet.on('peerLeft', (peerId, peerInfo, isSelf) => 
+  Skynet.on('peerLeft', (peerId, peerInfo, isSelf) =>
     peerLeft(peerId, peerInfo, isSelf, userData));
   Skynet.on('peerJoined', (peerId, peerInfo, isSelf) =>
    peerJoined(peerId, peerInfo, isSelf, userData));
