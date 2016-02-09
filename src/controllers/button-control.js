@@ -19,6 +19,7 @@ export function buttons() {
   /**
   * @function audioMuteControl
   */
+  $('document').tooltip();
   $('#audio-mute').on('click', audioMuteControl);
   /**
   * @function videoMuteControl
