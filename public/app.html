@@ -111,7 +111,7 @@
   </div>
 
   <!-- user info modal -->
-  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username">
+  <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="get username" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -128,11 +128,11 @@
             </div>
           </form>
           <div class="row">
-            <span>Use this link to share the room: <p id="room-share"></p></span>
+            <span id="room-share" class="block">Use this link to share the room:</span>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="user-okay" data-dismiss="modal">Okay</button>
+          <button type="button" class="btn btn-primary disabled" id="user-okay">Okay</button>
         </div>
       </div>
     </div>

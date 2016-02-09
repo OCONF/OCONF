@@ -21,22 +21,38 @@ function getRandomRoom() {
 }
 
 export function userModal(callback) {
-  // window.user = prompt('What is your name?');
   $('#userModal').modal('toggle');
-  $('#room-share').text(window.location.href);
-  $('#username').focus();
-  $('#username').on('keypress', (e) => {
+  let roomShare = $('#room-share');
+  let roomText = roomShare.text();
+  let userNameInput = $('#username');
+  roomShare.text(`${roomText} ${window.location.href}`);
+  userNameInput.focus();
+  // prevent form from being submitted
+  userNameInput.on('keypress', e => {
+    if (e.keyCode === 13) e.preventDefault();
+  });
+  userNameInput.on('keyup', e => {
+    if (userNameInput.val().length > 0) $('#user-okay').removeClass('disabled');
+    else if (userNameInput.val().length === 0) $('#user-okay').addClass('disabled');
     if (e.keyCode === 13) {
-      e.preventDefault();
-      $('#user-okay').trigger('click');
+      // only allow user to go forward if they've entered a username
+      if (userNameInput.val().length > 0) {
+        setUserName(callback);
+      }
     }
   });
   $('#user-okay').on('click', () => {
-    window.user = $('#username').val();
+      setUserName(callback);
+  });
+}
+
+function setUserName(callback) {
+  window.user = $('#username').val();
+  if (window.user.length) {
     Skynet.setUserData({
       displayName: window.user,
     });
-    // $('#userModal').modal('hide');
+    $('#userModal').modal('hide');
     callback();
-  });
+  }
 }

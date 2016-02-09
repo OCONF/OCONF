@@ -2,6 +2,8 @@ html, body {
   margin: 0px;
   height: 100%;
   background: black;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 .speaker {
   position: absolute;
@@ -92,7 +94,6 @@ html, body {
 #peek {
   z-index: 1000;
   display: inline-block;
-
   height: 100%;
   width: 401px;
   top: 0;
@@ -101,7 +102,6 @@ html, body {
   position: relative;
   left: 15px;
   background-color: #343a45;
-  border: 0.1em solid #bbb;
   border-radius: 0.25em;
   color: #fff;
   z-index: 10;
