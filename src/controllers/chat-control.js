@@ -1,5 +1,7 @@
 import $ from 'jquery';
-import { Skynet } from '../index';
+import {
+  Skynet
+} from '../index';
 
 export function sendMessage() {
   const input = $('#message-input')[0];
@@ -11,7 +13,9 @@ export function sendMessage() {
         input.value = '';
         return;
       }
-      if (['/giphy'].some(function(giphy) { return text.toLowerCase().indexOf(giphy) === 0; })) {
+      if (['/giphy'].some(function(giphy) {
+          return text.toLowerCase().indexOf(giphy) === 0;
+        })) {
         let gif = text.replace('/giphy ', '').split(' ').join('+');
         getGiphy(gif, function(giphy) {
           message = {
@@ -23,9 +27,9 @@ export function sendMessage() {
         });
       } else {
         message = {
-            type: 'text',
-            message: text,
-          }
+          type: 'text',
+          message: text,
+        }
         Skynet.sendMessage(message);
         input.value = '';
 
@@ -46,16 +50,19 @@ export function addMessage(user, message, type, className) {
   const li = $('<li>');
   var content = `<p>${user}: </p><span>`;
 
-  if(type === 'text') {
-    content += message.replace( /[<>]/ig, '' );
+  if (type === 'text') {
+    content += message.replace(/[<>]/ig, '');
   }
-  if(type === 'gif') {
-      content += message
+  if (type === 'gif') {
+    content += message
   }
   content += '</span>';
   let $content = $(content);
   li.append($content);
   li.appendTo(chatbox);
+  $('img').bind('load', function() {
+    scrollToBottom();
+  });
   scrollToBottom();
 }
 
@@ -103,7 +110,7 @@ function getGiphy(gif, cb) {
     cb(gif);
 
   };
-  xhr.onerror = function(){
+  xhr.onerror = function() {
     console.log(e);
   };
   xhr.send();
