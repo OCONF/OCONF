@@ -53,6 +53,10 @@ function setUserName(callback) {
       displayName: window.user,
     });
     $('#userModal').modal('hide');
+    // $('#userModal').modal('hide');
+    // var text  = $('#roomName');
+    // console.log(text);
+    // $('#roomName').text(':' + window.room);
     callback();
   }
 }

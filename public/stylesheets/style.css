@@ -133,7 +133,8 @@ html, body {
     z-index: 12039;
 }
 body {
-  padding-top: 65px;
+  padding-top: 50px;
+  overflow: hidden !important;
 }
 #nav-buttons {
   padding: 7px 15px;
