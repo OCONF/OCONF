@@ -7,6 +7,7 @@ export function peerJoined(peerId, peerInfo, isSelf, userData) {
   if (isSelf) return;
   userData.peerJoining = true;
   const displayName = peerInfo.userData.displayName !== undefined ? peerInfo.userData.displayName : 'anon';
+  const audioStatus = peerInfo.settings.audio;
   const div = $('<div />', {
     id: `video${peerId}`,
     class: 'videodiv',
@@ -20,7 +21,10 @@ export function peerJoined(peerId, peerInfo, isSelf, userData) {
   const overlay = $('<div />', {
     class: 'overlay',
   });
-  overlay.text(displayName);
+  overlay.text(displayName + ' ');
+  if(audioStatus) {
+    overlay.append('<i class="fa fa-microphone-slash text-danger"></i>');
+  }
   div.append(overlay).append(video);
   $('#video-list').append(div);
 }
@@ -43,6 +47,8 @@ export function peerLeft(peerId, peerInfo, isSelf, userData) {
 */
 export function peerUpdated (peerId, peerInfo, isSelf, userData) {
   const videoStatus = peerInfo.mediaStatus.videoMuted;
+  const audioStatus = peerInfo.mediaStatus.audioMuted;
+
   const speaker = !isSelf ? $(`#${peerId}`).parent()[0] : $('#myvideo').parent()[0];
   if (speaker.id === 'speaker') {
     const div = $('#speaker');
@@ -56,5 +62,13 @@ export function peerUpdated (peerId, peerInfo, isSelf, userData) {
     const div = $(`#video${peerId}`);
     if (videoStatus) div.addClass('unicorn');
     else div.removeClass('unicorn');
+  }
+  
+  // audio mute
+  if(audioStatus && $(`#video${peerId} > .overlay > i`).length === 0) {
+    $(`#video${peerId} > .overlay`).append('<i class="fa fa-microphone-slash text-danger"></i>');
+  }
+  else {
+    $(`#video${peerId} > .overlay > i`).remove();
   }
 }
