@@ -108,13 +108,8 @@ io.on('connection', socket => {
 		io.to(data.room).emit('clear', {});
 	});
 
-  socket.on('speaking', data => {
-    io.to(data.room).emit('audioFocus', {
-      id: data.id,
-    });
-  });
 
-  socket.on('speaking', (data) => audioThrottle(data));
+  socket.on('speaking', data => audioThrottle(data));
 
   // Text Editor Handling
   socket.on('textChange', data => {
