@@ -156,3 +156,10 @@ body {
   color: #FFF;
   background-color: rgba(40, 40, 40, 0.1);
 }
+#video-list {
+  width: 274px;
+height: 88vh;
+overflow-y: scroll;
+overflow-x:hidden;
+border: 2px solid gray;
+}
