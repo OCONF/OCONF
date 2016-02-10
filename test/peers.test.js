@@ -12,6 +12,9 @@ describe('peers.js', () => {
       userData: {
         displayName: 'test',
       },
+      settings: {
+        audio: {},
+      },
     };
     const userData = {
       id: '',
