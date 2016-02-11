@@ -66,25 +66,6 @@ export function addMessage(user, message, type, className) {
   scrollToBottom();
 }
 
-export function slide() {
-  $('#peek').on('click', function() {
-    const $this = $(this);
-    if ($this.hasClass('open')) {
-      $(document).keyup(function(e) {
-        if (e.keyCode == 27) {
-          $this.animate({
-            left: '500px'
-          }, 500).removeClass('open');
-        }
-      });
-    } else {
-      $this.animate({
-        left: 0
-      }, 500).addClass('open');
-    }
-  });
-}
-
 export function slideButton() {
   const peek = $('#peek');
   if (peek.hasClass('open')) {
