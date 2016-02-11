@@ -1,4 +1,5 @@
 import { Skynet } from '../index';
+import $ from 'jquery';
 import {
   addMessage,
 } from './chat-control';
@@ -54,6 +55,9 @@ export function initializeSkylink() {
         resolution: Skynet.VIDEO_RESOLUTION.VGA,
         frameRate: 20,
       },
+    }, () => {
+      // Mute self on joining room
+      $('#audio-mute').trigger('click');
     });
   });
 }
