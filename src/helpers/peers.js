@@ -49,26 +49,17 @@ export function peerUpdated (peerId, peerInfo, isSelf, userData) {
   const videoStatus = peerInfo.mediaStatus.videoMuted;
   const audioStatus = peerInfo.mediaStatus.audioMuted;
 
-  const speaker = !isSelf ? $(`#${peerId}`).parent()[0] : $('#myvideo').parent()[0];
-  if (speaker.id === 'speaker') {
-    const div = $('#speaker');
-    if (videoStatus) div.addClass('unicorn-self');
-    else div.removeClass('unicorn-self');
-  } else if (isSelf) {
-    const div = $('#self');
-    if (videoStatus) div.addClass('unicorn');
-    else div.removeClass('unicorn');
-  } else {
-    const div = $(`#video${peerId}`);
-    if (videoStatus) div.addClass('unicorn');
-    else div.removeClass('unicorn');
-  }
-  
+  const parent = !isSelf ? $(`#${peerId}`).parent() : $('#myvideo').parent();
+  const parentId = parent[0].id;
+  let unicornClass = parentId === 'speaker' ? 'unicorn-self' : 'unicorn';
+  if (videoStatus) parent.addClass(unicornClass);
+  else parent.removeClass(unicornClass);
+
   // audio mute
-  if(audioStatus && $(`#video${peerId} > .overlay > i`).length === 0) {
-    $(`#video${peerId} > .overlay`).append('<i class="fa fa-microphone-slash text-danger"></i>');
+  if (audioStatus && $(`#${parentId} > .overlay > i`).length === 0) {
+    $(`#${parentId} > .overlay`).append('<i class="fa fa-microphone-slash text-danger"></i>');
   }
   else {
-    $(`#video${peerId} > .overlay > i`).remove();
+    $(`#${parentId} > .overlay > i`).remove();
   }
 }
