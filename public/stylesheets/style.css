@@ -41,7 +41,7 @@ html, body {
   background: url('../img/angryunicorn.png') no-repeat;
   background-position: 50% 50%;
   z-index: 99;
-  height: 900px !important; 
+  height: 900px !important;
   width: 100% !important;
 }
 .unicorn-self > video {
@@ -122,7 +122,6 @@ html, body {
   height: 84vh;
   overflow: auto;
   z-index: 10;
-  padding: 20px 10px;
   font-size: 14px;
   color: #fff;
 }
@@ -212,7 +211,7 @@ body {
     background: url('../img/angryunicorn.png') no-repeat;
     background-position: 50% 50%;
     z-index: 99;
-    height: 470px !important; 
+    height: 470px !important;
     width: 100% !important;
   }
 }
@@ -229,4 +228,7 @@ body {
     height: 190px;
     width: 100% !important;
   }
+}
+p {
+  marign-bottom: 0;
 }
