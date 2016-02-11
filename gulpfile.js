@@ -10,7 +10,6 @@ var sequence = require('run-sequence');
 var babel = require('gulp-babel');
 var isparta = require('isparta');
 var babelRegister = require('babel-register');
-var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var browserify = require('browserify');
 var babelify = require('babelify');
@@ -19,6 +18,10 @@ var buffer = require('vinyl-buffer');
 var mochify = require('mochify');
 var watchify = require('watchify');
 var merge = require('utils-merge');
+var uglify = require('gulp-uglify');
+var csscat = require('gulp-concat-css');
+var gulpif = require('gulp-if');
+var cssnano = require('gulp-cssnano');
 
 var GULP_FILE = ['gulpfile.js'];
 var SRC_FILES = ['src/**/*.js'];
@@ -29,11 +32,12 @@ var COMPILED_SRC_DIR = 'public/build/dist';
 var COMPILED_SRC_FILES = [COMPILED_SRC_DIR + '/**/*.js'];
 var JSDOC_DIR = 'public/build/jsdoc';
 
-function bundle(bundler) {
+function bundle(bundler, isDev) {
   return bundler.bundle()
     .on('error', function (err) { console.error(err); })
     .pipe(source('app.js'))
     .pipe(buffer())
+    .pipe(gulpif(isDev, uglify()))
     .pipe(gulp.dest(COMPILED_SRC_DIR));
 }
 
@@ -104,17 +108,38 @@ gulp.task('bundle', function (done) {
   })
     .transform(babelify);
 
-  return bundle(bundler);
+  return bundle(bundler, false);
+});
+
+gulp.task('bundle:prod', function (done) {
+  var bundler = browserify({
+    entries: './src/index.js',
+    debug: true
+  })
+    .transform(babelify);
+
+  return bundle(bundler, true);
+});
+
+gulp.task('css:prod', function (done) {
+  return gulp.src(['node_modules/bootstrap/dist/css/bootstrap.css',
+  'node_modules/codemirror/lib/codemirror.css',
+  'node_modules/codemirror/addon/hint/show-hint.css',
+  'node_modules/codemirror/theme/lesser-dark.css',
+  'public/stylesheets/style.css'])
+  .pipe(csscat('bundle.min.css'))
+  .pipe(cssnano())
+  .pipe(gulp.dest(COMPILED_SRC_DIR));
 });
 
 gulp.task('watch', function(done) {
   var args = merge(watchify.args, { degbug: true});
   var bundler = watchify(browserify('./src/index.js', args)).transform(babelify);
 
-  bundle(bundler);
+  bundle(bundler, false);
 
   bundler.on('update', function() {
-    bundle(bundler);
+    bundle(bundler, false);
   });
 
   bundler.on('time', function(time) {
@@ -131,6 +156,10 @@ gulp.task('jsdoc', ['compile'], function (done) {
 
 gulp.task('build', function (done) {
   sequence('eslint', 'jscs', 'test', 'bundle', 'jsdoc', done);
+});
+
+gulp.task('build:prod', function (done) {
+  sequence('bundle:prod', 'css:prod', done);
 });
 
 gulp.task('pre-commit', ['build']);
