@@ -5,7 +5,7 @@ import {wbInit, clearScreen, drawLines, listenClearScreen, resizing} from './whi
 import { sendData, setData } from './editor-control';
 import io from 'socket.io-client';
 
-export default function (userId) {
+export default function (userData) {
 	const canvas  = document.getElementById('whiteboard');
 	const mouse = {
 			click: false,
@@ -77,8 +77,8 @@ export default function (userId) {
 
 		// Text editor controls
 		$('#text-editor').on('keyup', () => {
-			sendData(socket, userId);
+			sendData(socket, userData.id);
 		});
 
-		socket.on('setData', data => setData(data, userId));
+		socket.on('setData', data => setData(data, userData.id));
 };
