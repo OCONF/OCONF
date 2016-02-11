@@ -122,6 +122,7 @@ html, body {
   height: 84vh;
   overflow: auto;
   z-index: 10;
+  padding: 20px 10px;
   font-size: 14px;
   color: #fff;
 }
@@ -230,5 +231,5 @@ body {
   }
 }
 p {
-  marign-bottom: 0;
+  marign-bottom: 0
 }
