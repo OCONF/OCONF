@@ -230,18 +230,6 @@ body {
     width: 100% !important;
   }
 }
-
-.mobile-menu {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  #nav-buttons .btn {
-    width: 40px;
-  }
-  .mobile-menu {
-    display: inline;
-  }
-}p {
-  marign-bottom: 0
+p {
+  margin-bottom: 0;
 }
