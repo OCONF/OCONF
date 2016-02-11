@@ -100,7 +100,7 @@ export function slideButton() {
 
 
 function getGiphy(gif, cb) {
-  let url = `//api.giphy.com/v1/gifs/translate?api_key=dc6zaTOxFJmzC&s=${gif}`;
+  let url = `https://api.giphy.com/v1/gifs/translate?api_key=dc6zaTOxFJmzC&s=${gif}`;
   let xhr = new XMLHttpRequest();
 
   xhr.open('GET', url);
