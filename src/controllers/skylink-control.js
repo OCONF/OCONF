@@ -20,7 +20,7 @@ export function initializeSkylink() {
   Skynet.on('mediaAccessSuccess', stream => selfStream(stream, userData));
 
   // Handle that oncoming stream, filter it into new vid elements (made by peer functions)
-  Skynet.on('incomingStream', peerStream);
+  Skynet.on('incomingStream', (peerId, stream, isSelf) => peerStream(peerId, stream, isSelf, userData));
 
   Skynet.on('incomingMessage', (message, peerId, peerInfo, isSelf) => {
     let user = 'You';

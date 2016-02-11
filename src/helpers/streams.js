@@ -11,15 +11,17 @@ export function selfStream(stream, userData) {
   const selfSpeech = hark(stream, options);
   const talkThrottle = _.throttle(isTalking, 3000);
   selfSpeech.on('speaking', () => {
-    if (!userData.peerJoining) {
       talkThrottle(userData.id);
-    }
   });
   attachStream(vid[0], stream);
 }
 
 export function peerStream(peerId, stream, isSelf, userData) {
-  if (isSelf) return;
+  console.log(userData);
+  if (isSelf) {
+    userData.id = peerId;
+    return;
+  }
   const vid = $(`#${peerId}`)[0];
   attachStream(vid, stream);
   userData.peerJoining = false;

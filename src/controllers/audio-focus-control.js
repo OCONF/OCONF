@@ -10,6 +10,7 @@ socket.on('connect', () => {
 socket.on('audioFocus', (data) => {
   let myVideo = $(`#myvideo`);
   let peerVideo = $(`#${data.id}`);
+  console.log(data);
   // if myself, move me up
   if (data.id === userData.id) {
     if (myVideo.parent()[0].id !== 'speaker') {
@@ -26,10 +27,10 @@ socket.on('audioFocus', (data) => {
     peerVideo[0].play();
   }
 });
-export default function isTalking(userId) {
+export default function isTalking() {
   if (userData.audioMuted) return;
   socket.emit('speaking', {
-    id: userId,
+    id: userData.id,
     room: window.room,
   });
 }

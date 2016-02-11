@@ -23,7 +23,7 @@ import { chooseRoom } from './controllers/room-control';
 import createEditor from './controllers/editor-control';
 export const Skynet = new window.Skylink();
 export const userData = {
-  id: Skynet.generateUUID(),
+  id: '',
   audioMuted: false,
   videoMuted: false,
   screenShared: false,
@@ -47,7 +47,7 @@ function App() {
   slide();
   slideButton();
   // Initialize peer controllers
-  socketsCtrl(userData.id);
+  socketsCtrl(userData);
   createEditor();
 }
 
