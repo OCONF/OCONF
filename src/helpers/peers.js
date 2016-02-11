@@ -33,12 +33,14 @@ export function peerJoined(peerId, peerInfo, isSelf, userData) {
 * @function peerLeft
 */
 export function peerLeft(peerId, peerInfo, isSelf, userData) {
+  const peerParent = $(`#${peerId}`).parent();
   if (isSelf) return;
   // this should remove the peer,
   else if ($(`#video${peerId}`)) {
     // handling if peer is the speaker, this will ensure speaker is removed
-    $(`#${peerId}`).remove();
-    $(`#video${peerId}`).remove();
+    peerParent.children().remove();
+    // $(`#${peerId}`).remove();
+    // $(`#video${peerId}`).remove();
   }
 }
 
