@@ -15,7 +15,6 @@ import { buttons } from './controllers/button-control';
 import {
   sendMessage,
   addMessage,
-  slide,
   slideButton } from './controllers/chat-control';
 import { initializeSkylink } from './controllers/skylink-control';
 import socketsCtrl from './controllers/socket-control';
@@ -44,7 +43,6 @@ function App() {
   // Initialize message controls
   addMessage();
   sendMessage();
-  slide();
   slideButton();
   // Initialize peer controllers
   socketsCtrl(userData);
