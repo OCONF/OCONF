@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { Skynet } from '../index';
 
 export function fileTransfer (state, transferId, peerId, transferInfo, error) {
-  let displayName = Skynet.getPeerInfo(peerId).userData;
+  let displayName = Skynet.getPeerInfo(peerId).userData.displayName;
   let transferStatus = $('#' + peerId + '_' + transferId)[0];
 
   switch (state) {
