@@ -9,8 +9,8 @@ socket.on('connect', () => {
 });
 socket.on('audioFocus', (data) => {
   let myVideo = $(`#myvideo`);
+  let peerVideoGroup = $(`#video${data.id}`).children();
   let peerVideo = $(`#${data.id}`);
-  console.log(data);
   // if myself, move me up
   if (data.id === userData.id) {
     if (myVideo.parent()[0].id !== 'speaker') {
@@ -22,7 +22,7 @@ socket.on('audioFocus', (data) => {
   } else if (peerVideo[0]) {
     // otherwise move peer up
     removeLastFocus();
-    $('#speaker').append(peerVideo);
+    $('#speaker').append(peerVideoGroup);
     peerVideo.removeClass('peervideo');
     peerVideo[0].play();
   }
@@ -37,11 +37,12 @@ export default function isTalking() {
 
 function removeLastFocus() {
   let lastSpeaker = $('#speaker').children();
+  let lastSpeakerVideo = $('#speaker video');
   if (lastSpeaker.length) {
-    let id = $('#speaker').children()[0].id;
+    let id = lastSpeakerVideo[0].id;
     let place = id !== 'myvideo' ? `video${id}` : 'self';
     $(`#${place}`).append(lastSpeaker);
-    lastSpeaker.addClass('peervideo');
-    lastSpeaker[0].play();
+    lastSpeakerVideo.addClass('peervideo');
+    lastSpeakerVideo[0].play();
   }
 }

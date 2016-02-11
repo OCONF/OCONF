@@ -50,15 +50,16 @@ export function peerUpdated (peerId, peerInfo, isSelf, userData) {
   const audioStatus = peerInfo.mediaStatus.audioMuted;
 
   const parent = !isSelf ? $(`#${peerId}`).parent() : $('#myvideo').parent();
-  let unicornClass = parent[0].id === 'speaker' ? 'unicorn-self' : 'unicorn';
+  const parentId = parent[0].id;
+  let unicornClass = parentId === 'speaker' ? 'unicorn-self' : 'unicorn';
   if (videoStatus) parent.addClass(unicornClass);
   else parent.removeClass(unicornClass);
 
   // audio mute
-  if(audioStatus && $(`#video${peerId} > .overlay > i`).length === 0) {
-    $(`#video${peerId} > .overlay`).append('<i class="fa fa-microphone-slash text-danger"></i>');
+  if (audioStatus && $(`#${parentId} > .overlay > i`).length === 0) {
+    $(`#${parentId} > .overlay`).append('<i class="fa fa-microphone-slash text-danger"></i>');
   }
   else {
-    $(`#video${peerId} > .overlay > i`).remove();
+    $(`#${parentId} > .overlay > i`).remove();
   }
 }
