@@ -20,11 +20,13 @@ socket.on('audioFocus', (data) => {
       myVideo[0].play();
     }
   } else if (peerVideo[0]) {
-    // otherwise move peer up
-    removeLastFocus();
-    $('#speaker').append(peerVideoGroup);
-    peerVideo.removeClass('peervideo');
-    peerVideo[0].play();
+    if (peerVideo.parent()[0].id !== 'speaker') {
+      // otherwise move peer up
+      removeLastFocus();
+      $('#speaker').append(peerVideoGroup);
+      peerVideo.removeClass('peervideo');
+      peerVideo[0].play();
+    }
   }
 });
 export default function isTalking() {
