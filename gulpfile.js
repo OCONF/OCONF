@@ -129,7 +129,7 @@ gulp.task('css:prod', function (done) {
   'public/stylesheets/style.css'])
   .pipe(csscat('bundle.min.css'))
   .pipe(cssnano())
-  .pipe(gulp.dest(COMPILED_SRC_DIR));
+  .pipe(gulp.dest('public/stylesheets'));
 });
 
 gulp.task('watch', function(done) {

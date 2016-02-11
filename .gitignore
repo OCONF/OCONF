@@ -21,3 +21,4 @@ public/build
 
 #compiled files
 public/stylesheets/style.css~
+public/stylesheets/bundle.min.css
