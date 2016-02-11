@@ -20,7 +20,7 @@ export function sendMessage() {
         getGiphy(gif, function(giphy) {
           message = {
             type: 'gif',
-            message: `<p>${text}</p> <img src="${giphy}">`,
+            message: `<p>${text}</p> <img src="${giphy}" class="img-responsive">`,
           }
           Skynet.sendMessage(message);
           input.value = '';

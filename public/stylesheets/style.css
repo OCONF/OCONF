@@ -111,13 +111,16 @@ html, body {
   color: #fff;
   z-index: 10;
 }
+.chat-with {
+  padding: 5px;
+}
 #chat-history {
   list-style-type: none;
   word-wrap: break-word;
-  height: 85.5vh;
+  height: 84vh;
   overflow: auto;
   z-index: 10;
-  padding: 20px 24px;
+  padding: 20px 10px;
   font-size: 14px;
   color: #fff;
 }
@@ -148,7 +151,7 @@ body {
 .overlay {
   position: absolute;
   border-radius: 30px;
-  left: 0px;
+  left: 25px;
   top: 0px;
   margin: 5px;
   padding: 5px 5px;
