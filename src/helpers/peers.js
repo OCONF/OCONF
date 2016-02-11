@@ -15,7 +15,7 @@ export function peerJoined(peerId, peerInfo, isSelf, userData) {
   const video = $('<video />', {
     id: peerId,
     autoplay: true,
-    class: 'videocontainer peervideo',
+    class: 'videocontainer peervideo img-responsive',
     'data-display-name': displayName,
   });
   const overlay = $('<div />', {
